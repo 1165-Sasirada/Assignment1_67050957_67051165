@@ -63,20 +63,6 @@ public class PonyIdle {
 		"6X 4O 3X 2O"
 	};
 
-	// public static void draw(Graphics2D g2d, int scale, int frameIndex) {
-	// 	switch (frameIndex) {
-	// 		case 0:
-	// 			DrawElement.drawElement(g2d, eyeOpen, 25, 25, scale);
-	// 			break;
-	// 		case 1:
-	// 			DrawElement.drawElement(g2d, eyeHalf, 26, 25, scale);
-	// 			break;
-	// 		case 2:
-	// 			DrawElement.drawElement(g2d, eyeClose, 25, 25, scale);
-	// 			break;
-	// 	}
-	// }
-
 	public static void draw(Graphics2D g2d, int scale, int frameIndex) {
 		String[][] frames = { eyeOpen, eyeHalf, eyeClose, eyeHalf };
 		int rowOffset = (frameIndex == 1 || frameIndex == 3) ? 26 : 25;
