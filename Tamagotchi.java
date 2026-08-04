@@ -43,7 +43,7 @@ public class Tamagotchi extends JPanel {
 
 		try {
 			// 1. Draw outer Tamagotchi Device Frame
-			g2.drawImage(tamagotchiDeviceImage, 0, 0, null);
+			renderImage(g2,tamagotchiDeviceImage, 0, 0, 1.0);
 
 			// 2. Setup screen graphics boundary (Screen viewport)
 			Graphics2D screenG = (Graphics2D) g2.create();
@@ -81,6 +81,13 @@ public class Tamagotchi extends JPanel {
 		} finally {
 			g2.dispose();
 		}
+	}
+
+	private void renderImage(Graphics2D g2, BufferedImage image, int x, int y, double scale) {
+		int drawWidth = (int) (image.getWidth() * scale);
+		int drawHeight = (int) (image.getHeight() * scale);
+
+		g2.drawImage(image, x, y, drawWidth, drawHeight, null);
 	}
 
 	// --- Device Shell Drawing Methods ---
