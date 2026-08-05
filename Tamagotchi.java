@@ -90,6 +90,16 @@ public class Tamagotchi extends JPanel {
 						DrawElement.drawWindow(screenG, 15, 18, scale, DrawElement.night);
 						PonySleep.draw(screenG, scale, tickCount % 4);
 						break;
+
+					case EAT:
+						screenG.setColor(palePinkBG);
+						screenG.fillRect(48, 48, 640, 640);
+						DrawElement.drawFrame(screenG, pinkFrame, 9, 13, 44, scale);
+						DrawElement.drawMenuDay(screenG, scale, 56, 17);
+						DrawElement.drawWindow(screenG, 15, 18, scale, DrawElement.day);
+						PonyIdle.draw(screenG, scale, tickCount % 4);
+						PonyEat.draw(screenG, scale, tickCount % 4);
+						break;
 				}
 			} finally {
 				screenG.dispose();

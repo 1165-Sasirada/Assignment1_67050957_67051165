@@ -5,10 +5,11 @@ public class Main {
 	public static enum Scene {
 		IDLE,
 		BATH,
-		SLEEP
+		SLEEP,
+		EAT
 	}
 
-	private static Scene currentScene = Scene.SLEEP;
+	private static Scene currentScene = Scene.EAT;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
