@@ -85,7 +85,6 @@ public class PonySleep {
 			{ { sleep0, 26, 25 }, { z0, 22, 41 }, { z1, 15, 45 }, { b1, 32, 21 } }
 		};
 
-		// Safely cycle or cap index depending on your tick count bounds
 		int targetStep = frameIndex % frames.length;
 
 		for (Object[] element : frames[targetStep]) {

@@ -94,7 +94,7 @@ public class DrawElement {
 		g2d.drawRect(screenX + offset, screenY + offset, screenSize - scale, screenSize - scale);
 	}
 
-	public static void drawMenu(Graphics2D g2d, int scale, int row, int col) {
+	public static void drawMenuDay(Graphics2D g2d, int scale, int row, int col) {
 		String[] sleepMenu = {
 			"2X 3F",
 			"1X 2F 2X 1F",
@@ -123,6 +123,42 @@ public class DrawElement {
 			"1X 1F 2X 2F",
 			"1X 1F 3X 1F",
 			"1X 1F 3X 1F"
+		};
+
+		drawElement(g2d, sleepMenu, row, col, scale);
+		drawElement(g2d, bathMenu, row, col + 15, scale);
+		drawElement(g2d, eatMenu, row, col + 30, scale);
+	}
+
+	public static void drawMenuNight(Graphics2D g2d, int scale, int row, int col) {
+		String[] sleepMenu = {
+			"2X 3N",
+			"1X 2N 2X 1N",
+			"2N 5X 1N",
+			"2N 4X 1N 1X 1N",
+			"2N 5X 1N",
+			"1X 2N 2X 1N",
+			"2X 3N"
+		};
+
+		String[] bathMenu = {
+			"2X 2N",
+			"1X 1N 2X 1N",
+			"2N 2X 1N 2X 1N",
+			"2X 2N 2X 2N",
+			"1X 1N 2X 2N 1X 1N",
+			"1X 1N 5X 1N",
+			"2X 5N"
+		};
+
+		String[] eatMenu = {
+			"3N 2X 1N",
+			"3N 1X 2N",
+			"3N 1X 2N",
+			"1X 1N 1X 3N",
+			"1X 1N 2X 2N",
+			"1X 1N 3X 1N",
+			"1X 1N 3X 1N"
 		};
 
 		drawElement(g2d, sleepMenu, row, col, scale);

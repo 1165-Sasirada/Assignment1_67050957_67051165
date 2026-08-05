@@ -13,6 +13,8 @@ public class Tamagotchi extends JPanel {
 	// Color definitions
 	public static final Color TRANSPARENT = new Color(0, 0, 0, 0);
 	public static final Color pinkFrame = new Color(229, 160, 192);
+	public static final Color palePinkBG = new Color(255, 239, 246);
+	public static final Color blueBG = new Color(122, 138, 181);
 	public static final Color lineColor = Color.decode("#3F3850");
 	public static final Color tamagotchiColor = Color.decode("#A9B8F5");
 	public static final Color tamagotchiShadow = Color.decode("#8495D8");
@@ -55,18 +57,25 @@ public class Tamagotchi extends JPanel {
 				int scale = Math.max(1, Math.min(getWidth(), getHeight()) / CANVAS_GRID_SIZE);
 
 				// Render permanent background screen components
-				DrawElement.drawFrame(screenG, pinkFrame, 9, 13, 44, scale);
-				DrawElement.drawMenu(screenG, scale, 56, 17);
-				// DrawElement.drawWindow(screenG, 15, 18, scale, DrawElement.day);
+				// DrawElement.drawFrame(screenG, pinkFrame, 9, 13, 44, scale);
+				// DrawElement.drawMenu(screenG, scale, 56, 17);
 
 				// 3. Render content based on active Scene
 				switch (Main.getCurrentScene()) {
 					case IDLE:
+						screenG.setColor(palePinkBG);
+						screenG.fillRect(48, 48, 640, 640);
+						DrawElement.drawFrame(screenG, pinkFrame, 9, 13, 44, scale);
+						DrawElement.drawMenuDay(screenG, scale, 56, 17);
 						DrawElement.drawWindow(screenG, 15, 18, scale, DrawElement.day);
 						PonyIdle.draw(screenG, scale, tickCount % 4);
 						break;
 
 					case BATH:
+						screenG.setColor(palePinkBG);
+						screenG.fillRect(48, 48, 640, 640);
+						DrawElement.drawFrame(screenG, pinkFrame, 9, 13, 44, scale);
+						DrawElement.drawMenuDay(screenG, scale, 56, 17);
 						DrawElement.drawWindow(screenG, 15, 18, scale, DrawElement.day);
 						PonyIdle.draw(screenG, scale, tickCount % 4);
 						DrawElement.drawBathTub(screenG, 25, 40, scale);
@@ -74,6 +83,10 @@ public class Tamagotchi extends JPanel {
 						break;
 
 					case SLEEP:
+						screenG.setColor(blueBG);
+						screenG.fillRect(48, 48, 640, 640);
+						DrawElement.drawFrame(screenG, DrawElement.night, 9, 13, 44, scale);
+						DrawElement.drawMenuNight(screenG, scale, 56, 17);
 						DrawElement.drawWindow(screenG, 15, 18, scale, DrawElement.night);
 						PonySleep.draw(screenG, scale, tickCount % 4);
 						break;
