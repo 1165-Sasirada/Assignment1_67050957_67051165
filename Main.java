@@ -8,7 +8,7 @@ public class Main {
 		SLEEP
 	}
 
-	private static Scene currentScene = Scene.BATH;
+	private static Scene currentScene = Scene.SLEEP;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {

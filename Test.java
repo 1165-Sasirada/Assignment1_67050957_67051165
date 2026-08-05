@@ -72,23 +72,38 @@ public class Test extends JPanel {
 		drawMenu(g2d, scale, 56, 17);
 		drawWindow(g2d, 14, 18, scale, day);
 
+		// switch(currentFrame) {
+		// 	case 0:
+		// 		drawPonyIdle(g2d, scale, 0);
+		// 		break;
+		// 	case 1:
+		// 		drawPonyIdle(g2d, scale, 1);
+		// 		break;
+		// 	case 2:
+		// 		drawPonyIdle(g2d, scale, 2);
+		// 		break;
+		// 	case 3:
+		// 		drawPonyIdle(g2d, scale, 1);
+		// 		break;
+		// }
+
+		// drawBathTub(g2d, 25, 40, scale);
+		// randomBubbles(g2d, scale);
+
 		switch(currentFrame) {
 			case 0:
-				drawPonyIdle(g2d, scale, 0);
+				drawPonySleep(g2d, scale, 0);
 				break;
 			case 1:
-				drawPonyIdle(g2d, scale, 1);
+				drawPonySleep(g2d, scale, 1);
 				break;
 			case 2:
-				drawPonyIdle(g2d, scale, 2);
+				drawPonySleep(g2d, scale, 2);
 				break;
 			case 3:
-				drawPonyIdle(g2d, scale, 1);
+				drawPonySleep(g2d, scale, 1);
 				break;
 		}
-
-		drawBathTub(g2d, 25, 40, scale);
-		randomBubbles(g2d, scale);
 	}
 
 	private Color getColorFromCode(char code) {
@@ -234,6 +249,61 @@ public class Test extends JPanel {
 				drawElement(g2d, eyeClose, 25, 25, scale);
 				break;
 		};	
+	}
+
+	private void drawPonySleep(Graphics2D g2d, int scale, int action) {
+		String[] sleep0 = {
+			"4X 10O",
+			"3X 1O 2H 1P 2I 2H 1A 2S 1O",
+			"2X 1O 2H 1P 2I 2H 2A 3S 1O",
+			"1X 1O 2S 1H 1P 2I 1H 1A 3S 1D 1S 1O",
+			"1X 1O 2H 1P 2I 2H 1A 3S 1D 1S 1O",
+			"1O 3H 1P 2I 1H 1A 6S 1O",
+			"1O 3H 1P 2I 1H 1A 5S 1A 1O",
+			"1O 3H 1P 2I 1H 1A 5S 1A 1O",
+			"3O 6A 5S 1A 1H 1O",
+			"3X 1O 8S 1E 1D 1A 1H 1O",
+			"2X 2O 1D 3S 1E 3S 1E 1S 1A 1H 1O",
+			"2X 1O 6S 3E 2S 1A 1H 1O",
+			"3X 1O 9S 1A 2H 1O",
+			"4X 3O 5D 1S 4A 1O",
+			"6X 1O 7S 1O 2H 1O",
+			"5X 1O 2D 7S 3O",
+			"5X 1O 2D 2S 3O 2S 1O",
+			"6X 4O 3X 2O"
+		};
+
+		String[] sleep1 = {
+			"4X 7O 1X 3O",
+			"2X 2O 1H 1P 2I 2H 1A 1O 3S 1O",
+			"1X 1O 2S 1H 1P 2I 1H 1A 3S 1D 1S 1O",
+			"1X 1O 2H 1P 2I 2H 1A 3S 1D 1S 1O",
+			"1O 3H 1P 2I 1H 1A 6S 1O",
+			"1O 3H 1P 2I 1H 1A 5S 1A 1O",
+			"1O 3H 1P 2I 1H 1A 5S 1A 1O",
+			"3O 1H 1P 2I 1H 1A 5S 1A 1H 1O",
+			"3X 1O 4A 4S 1E 1D 1A 1H 1O",
+			"2X 2O 1D 3S 1E 3S 1E 1S 1A 1H 1O",
+			"2X 1O 6S 3E 2S 1A 1H 1O",
+			"3X 1O 9S 1A 2H 1O",
+			"4X 3O 5D 1S 4A 1O",
+			"6X 1O 7S 1O 2H 1O",
+			"5X 1O 2D 7S 2O",
+			"5X 1O 2D 2S 3O 2S 1O",
+			"6X 4O 3X 2O"
+		};
+
+		switch (action) {
+			case 0:
+				drawElement(g2d, sleep0, 25, 25, scale);
+				break;
+			case 1:
+				drawElement(g2d, sleep1, 26, 25, scale);
+				break;
+			case 2:
+				drawElement(g2d, sleep0, 25, 25, scale);
+				break;
+		};
 	}
 
 	private void drawMenu(Graphics2D g2d, int scale, int row, int col) {
