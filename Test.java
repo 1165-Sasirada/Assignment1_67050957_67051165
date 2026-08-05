@@ -122,7 +122,7 @@ public class Test extends JPanel {
 			// case 'Q': return wood2;
 			// case 'C': return curtain;
 			// case 'U': return curtain2;
-			// case 'K': return day;
+			case 'K': return day;
 			// case 'N': return night;
 
 			case 'B': return bubble;
@@ -293,15 +293,53 @@ public class Test extends JPanel {
 			"6X 4O 3X 2O"
 		};
 
+		String[] z0 = {
+			"3O",
+			"2X 1O",
+			"1X 1O",
+			"1O",
+			"3O"
+		};
+
+		String[] z1 =  {
+			"4O",
+			"3X 1O",
+			"2x 1O",
+			"1X 1O",
+			"1O",
+			"4O"
+		};
+
+		String[] b0 = {
+			"1X 2K",
+			"1K 1B 1W 1K",
+			"1K 2B 1K",
+			"1X 2K"
+		};
+
+		String[] b1 = {
+			"1X 3K",
+			"1K 2B 1W 1K",
+			"1K 1B 2W 1K",
+			"1K 4B 1K",
+			"1X 1K 4B 1K",
+			"2X 4K"
+		};
+
 		switch (action) {
 			case 0:
 				drawElement(g2d, sleep0, 25, 25, scale);
 				break;
 			case 1:
 				drawElement(g2d, sleep1, 26, 25, scale);
+				drawElement(g2d, z0, 21, 41, scale);
+				drawElement(g2d, b0, 34, 25, scale);
 				break;
 			case 2:
 				drawElement(g2d, sleep0, 25, 25, scale);
+				drawElement(g2d, z0, 21, 41, scale);
+				drawElement(g2d, z1, 14, 45, scale);
+				drawElement(g2d, b1, 31, 21, scale);
 				break;
 		};
 	}

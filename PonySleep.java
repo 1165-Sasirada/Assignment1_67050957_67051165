@@ -42,12 +42,37 @@ public class PonySleep {
 		"6X 4O 3X 2O"
 	};
 
-	private static final String[] effect0 = {
-
+	private static String[] z0 = {
+		"3O",
+		"2X 1O",
+		"1X 1O",
+		"1O",
+		"3O"
 	};
 
-	private static final String[] effect1 = {
+	private static String[] z1 =  {
+		"4O",
+		"3X 1O",
+		"2x 1O",
+		"1X 1O",
+		"1O",
+		"4O"
+	};
 
+	private static String[] b0 = {
+		"1X 2K",
+		"1K 1B 1W 1K",
+		"1K 2B 1K",
+		"1X 2K"
+	};
+
+	private static String[] b1 = {
+		"1X 3K",
+		"1K 2B 1W 1K",
+		"1K 1B 2W 1K",
+		"1K 4B 1K",
+		"1X 1K 4B 1K",
+		"2X 4K"
 	};
 
 	public static void draw(Graphics2D g2d, int scale, int frameIndex) {
