@@ -57,21 +57,24 @@ public class Tamagotchi extends JPanel {
 				// Render permanent background screen components
 				DrawElement.drawFrame(screenG, pinkFrame, 9, 13, 44, scale);
 				DrawElement.drawMenu(screenG, scale, 56, 17);
-				DrawElement.drawWindow(screenG, 14, 18, scale, DrawElement.day);
+				// DrawElement.drawWindow(screenG, 15, 18, scale, DrawElement.day);
 
 				// 3. Render content based on active Scene
 				switch (Main.getCurrentScene()) {
 					case IDLE:
+						DrawElement.drawWindow(screenG, 15, 18, scale, DrawElement.day);
 						PonyIdle.draw(screenG, scale, tickCount % 4);
 						break;
 
 					case BATH:
+						DrawElement.drawWindow(screenG, 15, 18, scale, DrawElement.day);
 						PonyIdle.draw(screenG, scale, tickCount % 4);
 						DrawElement.drawBathTub(screenG, 25, 40, scale);
 						DrawElement.randomBubbles(screenG, scale);
 						break;
 
 					case SLEEP:
+						DrawElement.drawWindow(screenG, 15, 18, scale, DrawElement.night);
 						PonySleep.draw(screenG, scale, tickCount % 4);
 						break;
 				}

@@ -76,10 +76,26 @@ public class PonySleep {
 	};
 
 	public static void draw(Graphics2D g2d, int scale, int frameIndex) {
-		String[][] frames = { sleep0, sleep1 };
-		int targetFrame = frameIndex % 2;
-    	int rowOffset = (targetFrame == 1) ? 26 : 25;
+		Object[][][] frames = {
+			// Step 0
+			{ { sleep0, 26, 25 } },
+			// Step 1
+			{ { sleep1, 27, 25 }, { z0, 22, 41 }, { b0, 35, 25 } },
+			// Step 2
+			{ { sleep0, 26, 25 }, { z0, 22, 41 }, { z1, 15, 45 }, { b1, 32, 21 } }
+		};
 
-  		DrawElement.drawElement(g2d, frames[targetFrame], rowOffset, 25, scale);
+		// Safely cycle or cap index depending on your tick count bounds
+		int targetStep = frameIndex % frames.length;
+
+		for (Object[] element : frames[targetStep]) {
+			DrawElement.drawElement(
+				g2d, 
+				(String[]) element[0], 
+				(Integer) element[1], 
+				(Integer) element[2], 
+				scale
+			);
+		}
 	}
 }

@@ -70,7 +70,7 @@ public class Test extends JPanel {
 
 		drawFrame(g2d, pinkFrame, 9, 13, 44, scale);
 		drawMenu(g2d, scale, 56, 17);
-		drawWindow(g2d, 14, 18, scale, day);
+		drawWindow(g2d, 15, 18, scale, day);
 
 		// switch(currentFrame) {
 		// 	case 0:
@@ -122,8 +122,8 @@ public class Test extends JPanel {
 			// case 'Q': return wood2;
 			// case 'C': return curtain;
 			// case 'U': return curtain2;
-			case 'K': return day;
 			// case 'N': return night;
+			case 'K': return day;
 
 			case 'B': return bubble;
 			case 'Y': return bubbleShadow;
@@ -240,13 +240,13 @@ public class Test extends JPanel {
 
 		switch (action) {
 			case 0:
-				drawElement(g2d, eyeOpen, 25, 25, scale);
+				drawElement(g2d, eyeOpen, 26, 25, scale);
 				break;
 			case 1:
-				drawElement(g2d, eyeHalf, 26, 25, scale);
+				drawElement(g2d, eyeHalf, 27, 25, scale);
 				break;
 			case 2:
-				drawElement(g2d, eyeClose, 25, 25, scale);
+				drawElement(g2d, eyeClose, 26, 25, scale);
 				break;
 		};	
 	}
@@ -328,18 +328,18 @@ public class Test extends JPanel {
 
 		switch (action) {
 			case 0:
-				drawElement(g2d, sleep0, 25, 25, scale);
+				drawElement(g2d, sleep0, 26, 25, scale);
 				break;
 			case 1:
-				drawElement(g2d, sleep1, 26, 25, scale);
-				drawElement(g2d, z0, 21, 41, scale);
-				drawElement(g2d, b0, 34, 25, scale);
+				drawElement(g2d, sleep1, 27, 25, scale);
+				drawElement(g2d, z0, 22, 41, scale);
+				drawElement(g2d, b0, 35, 25, scale);
 				break;
 			case 2:
-				drawElement(g2d, sleep0, 25, 25, scale);
-				drawElement(g2d, z0, 21, 41, scale);
-				drawElement(g2d, z1, 14, 45, scale);
-				drawElement(g2d, b1, 31, 21, scale);
+				drawElement(g2d, sleep0, 26, 25, scale);
+				drawElement(g2d, z0, 22, 41, scale);
+				drawElement(g2d, z1, 15, 45, scale);
+				drawElement(g2d, b1, 32, 21, scale);
 				break;
 		};
 	}
@@ -377,7 +377,7 @@ public class Test extends JPanel {
 
 		drawElement(g2d, sleepMenu, row, col, scale);
 		drawElement(g2d, bathMenu, row, col + 15, scale);
-		drawElement(g2d, bathMenu, row, col + 30, scale);
+		drawElement(g2d, eatMenu, row, col + 30, scale);
 	}
 
 	private void drawWindow(Graphics2D g2d, int row, int col, int scale, Color timeOfDay) {

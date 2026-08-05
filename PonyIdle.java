@@ -65,7 +65,7 @@ public class PonyIdle {
 
 	public static void draw(Graphics2D g2d, int scale, int frameIndex) {
 		String[][] frames = { eyeOpen, eyeHalf, eyeClose, eyeHalf };
-		int rowOffset = (frameIndex == 1 || frameIndex == 3) ? 26 : 25;
+		int rowOffset = (frameIndex == 1 || frameIndex == 3) ? 27 : 26;
 
 		DrawElement.drawElement(g2d, frames[frameIndex], rowOffset, 25, scale);
 	}
