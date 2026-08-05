@@ -31,6 +31,10 @@ public class Test extends JPanel {
 	private static final Color bubble = new Color(233, 249, 255);
 	private static final Color bubbleShadow = new Color(137, 174, 206);
 
+	private static final Color cookie0 = new Color(93, 61, 52);
+	private static final Color cookie1 = new Color(184, 133, 91);
+	private static final Color cookie2 = new Color(220, 178, 142);
+
 	private int currentFrame = 0;
 	private final Timer animationTimer;
 
@@ -104,6 +108,8 @@ public class Test extends JPanel {
 				drawPonySleep(g2d, scale, 1);
 				break;
 		}
+
+		drawEat(g2d, scale);
 	}
 
 	private Color getColorFromCode(char code) {
@@ -129,6 +135,10 @@ public class Test extends JPanel {
 			case 'Y': return bubbleShadow;
 
 			case 'F': return pinkFrame;
+
+			case 'c': return cookie0;
+			case 'o': return cookie1;
+			case 'k': return cookie2;
 
 			case 'W': return Color.WHITE;
 			case 'X': // Blank
@@ -380,10 +390,70 @@ public class Test extends JPanel {
 		drawElement(g2d, eatMenu, row, col + 30, scale);
 	}
 
-	private void drawEat(Graphics2D g2d, int scale, int action) {
-		String[] eat0 = {
-
+	private void drawEat(Graphics2D g2d, int scale) {
+		String[] cookie0 = {
+			"4X 4c",
+			"3X 1c 3o 1k 2c",
+			"2X 1c 1k 4o 2k 1c",
+			"1X 1c 2o 2c 5o 1c",
+			"1X 1c 2o 1c 1k 2o 1c 3o 1c",
+			"1c 8o 1k 1c 1o 1c",
+			"1c 1k 1o 1c 2o 1k 3o 1c 1o 1c",
+			"1c 1k 2o 1c 2o 2c 3o 1c",
+			"1X 1c 1k 4o 2c 3o 1c",
+			"1X 1c 1k 1o 1c 5o 1k 1c",
+			"2X 1c 1k 6o 1c",
+			"3X 2c 2k 2o 1c",
+			"5X 4c"
 		};
+
+		String[] cookie1 = {
+			"4X 2c",
+			"3X 1c 2o 1c",
+			"2X 1c 1k 2o 1c",
+			"1X 1c 2o 2c 1o 1c",
+			"1X 1c 2o 1c 1k 2o 1c",
+			"1c 8o 1c",
+			"1c 1k 1o 1c 2o 1k 3o 2c",
+			"1c 1k 2o 1c 2o 2c 3o 1c",
+			"1X 1c 1k 4o 2c 3o 1c",
+			"1X 1c 1k 1o 1c 5o 1k 1c",
+			"2X 1c 1k 6o 1c",
+			"3X 2c 2k 2o 1c",
+			"5X 4c"
+		};
+
+		String[] cookie2 = {
+			"4X 2c",
+			"3X 1c 2o 1c",
+			"2X 1c 1k 2o 1c",
+			"1X 1c 2o 2c 1o 1c",
+			"1X 1c 2o 1c 1k 2o 1c",
+			"1c 8o 1c",
+			"1X 1c 1o 1c 2o 1k 3o 2c",
+			"1X 1c 2o 1c 2o 2c 3o 1c",
+			"2X 2c 3o 2c 3o 1c",
+			"4X 2c 4o 1k 1c",
+			"6X 1c 3o 1c",
+			"6x 1c 2o 1c",
+			"7X 2c"
+		};
+
+		String[] cookie3 = {
+			"3X 3c",
+			"2X 1c 1k 2o 1c",
+			"1X 1c 5o 1c",
+			"1X 1c 2o 1k 3o 1c",
+			"1c 1o 1c 2o 2c 1o 1c",
+			"1X 1c 3o 3c",
+			"2X 2c 2o 1c",
+			"4X 2c"
+		};
+
+		// drawElement(g2d, cookie0, 37, 18, scale);
+		// drawElement(g2d, cookie1, 37, 18, scale);
+		// drawElement(g2d, cookie2, 37, 18, scale);
+		drawElement(g2d, cookie3, 39, 21, scale);
 	}
 
 	private void drawWindow(Graphics2D g2d, int row, int col, int scale, Color timeOfDay) {

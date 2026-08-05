@@ -27,6 +27,10 @@ public class DrawElement {
 	public static final Color bubble = new Color(233, 249, 255);
 	public static final Color bubbleShadow = new Color(137, 174, 206);
 
+	public static final Color cookie0 = new Color(93, 61, 52);
+	public static final Color cookie1 = new Color(184, 133, 91);
+	public static final Color cookie2 = new Color(220, 178, 142);
+
 	public static Color getColorFromCode(char code) {
 		switch (code) {
 			case 'O': return outline;
@@ -48,6 +52,10 @@ public class DrawElement {
 
 			case 'B': return bubble;
 			case 'Y': return bubbleShadow;
+
+			case 'c': return cookie0;
+			case 'o': return cookie1;
+			case 'k': return cookie2;
 			
 			case 'F': return Tamagotchi.pinkFrame;
 			case 'W': return Color.WHITE;
