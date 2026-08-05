@@ -380,6 +380,12 @@ public class Test extends JPanel {
 		drawElement(g2d, eatMenu, row, col + 30, scale);
 	}
 
+	private void drawEat(Graphics2D g2d, int scale, int action) {
+		String[] eat0 = {
+
+		};
+	}
+
 	private void drawWindow(Graphics2D g2d, int row, int col, int scale, Color timeOfDay) {
 		int size = 16 * scale;
 
