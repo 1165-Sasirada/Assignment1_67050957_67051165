@@ -105,8 +105,11 @@ public class Tamagotchi extends JPanel {
 				screenG.dispose();
 			}
 
-			// Fingers.drawFingerRightStill(g2);
+			Fingers.drawFingerRightStill(g2);
+			Fingers.drawFingerLeftStill(g2);
+
 			Fingers.drawFingerRightPress(g2);
+			Fingers.drawFingerLeftPress(g2);
 
 		} finally {
 			g2.dispose();
