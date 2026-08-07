@@ -9,7 +9,7 @@ public class Main {
 		EAT
 	}
 
-	private static Scene currentScene = Scene.EAT;
+	private static Scene currentScene = Scene.IDLE;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
@@ -25,14 +25,22 @@ public class Main {
 
 			// Controls animation tick rate and scene progression
 			Timer timer = new Timer(500, e -> {
+				int currentTick = tamagotchiPanel.getTicks() % 39;
+
+				if (currentTick < 10) {
+					setScene(Scene.IDLE);
+				}
+				else if (currentTick < 20) {
+					setScene(Scene.SLEEP);
+				}
+				else if (currentTick < 31) {
+					setScene(Scene.EAT);
+				}
+				else {
+					setScene(Scene.BATH);
+				}
+
 				tamagotchiPanel.tick();
-				
-				// Example scene control logic
-				// You can change scene based on tick count or user interactions
-				/*
-				if (tamagotchiPanel.getTicks() == 10) setScene(Scene.BATH);
-				if (tamagotchiPanel.getTicks() == 20) setScene(Scene.SLEEP);
-				*/
 			});
 			timer.start();
 		});

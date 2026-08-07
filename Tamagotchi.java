@@ -105,11 +105,33 @@ public class Tamagotchi extends JPanel {
 				screenG.dispose();
 			}
 
-			Fingers.drawFingerRightStill(g2);
-			Fingers.drawFingerLeftStill(g2);
+			int cycleTick = tickCount % 36;
 
-			Fingers.drawFingerRightPress(g2);
-			Fingers.drawFingerLeftPress(g2);
+			if (cycleTick >= 8 && cycleTick < 10) {
+				Fingers.drawFingerRightStill(g2);
+				Fingers.drawFingerLeftPress(g2);
+			}
+			else if (cycleTick >= 18 && cycleTick < 20) {
+				Fingers.drawFingerRightPress(g2);
+				Fingers.drawFingerLeftStill(g2);
+			}
+			else if (cycleTick == 28) {
+				Fingers.drawFingerRightReach0(g2);
+				Fingers.drawFingerLeftStill(g2);
+			}
+			else if (cycleTick == 29) {
+				Fingers.drawFingerRightReach1(g2);
+				Fingers.drawFingerLeftStill(g2);
+			}
+			else if (cycleTick == 30) {
+				Fingers.drawFingerRightPressMiddle(g2);
+				Fingers.drawFingerLeftStill(g2);
+			}
+			else {
+				Fingers.drawFingerRightStill(g2);
+				Fingers.drawFingerLeftStill(g2);
+			}
+
 
 		} finally {
 			g2.dispose();
