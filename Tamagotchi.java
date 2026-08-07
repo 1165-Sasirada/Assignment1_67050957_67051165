@@ -104,6 +104,10 @@ public class Tamagotchi extends JPanel {
 			} finally {
 				screenG.dispose();
 			}
+
+			// Fingers.drawFingerRightStill(g2);
+			Fingers.drawFingerRightPress(g2);
+
 		} finally {
 			g2.dispose();
 		}
@@ -350,7 +354,30 @@ public class Tamagotchi extends JPanel {
 		}
 	}
 
-	private void plot(Graphics g, int x, int y, int pixelSize) {
+	public static void bezierCurve(Graphics2D g2d, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4) {
+		int numPoints = 500;
+		double step = 1.0 / numPoints;
+
+		for (double t = 0; t <= 1; t+= step) {
+			int x = (int) (Math.pow(1 - t, 3) * x1 +
+					3 * t * Math.pow(1 - t, 2) * x2 +
+					3 * Math.pow(t, 2) * (1 - t) * x3 +
+					Math.pow(t, 3) * x4);
+
+			int y = (int) (Math.pow(1 - t, 3) * y1 +
+					3 * t * Math.pow(1 - t, 2) * y2 +
+					3 * Math.pow(t, 2) * (1 - t) * y3 +
+					Math.pow(t, 3) * y4);
+
+			plot(g2d, x, y, 3);
+		}
+	}
+
+	// private static void plot2d(Graphics g, int x, int y, int size) {
+	// 	g.fillOval(x - size/2, y - size/2, size, size);
+	// }
+
+	private static void plot(Graphics g, int x, int y, int pixelSize) {
 		int size = Math.max(1, pixelSize);
 		g.fillRect(x, y, size, size);
 	}
