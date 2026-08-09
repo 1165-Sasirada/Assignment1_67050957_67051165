@@ -138,7 +138,7 @@ public class Tamagotchi extends JPanel {
 		}
 	}
 
-	private void renderImage(Graphics2D g2, BufferedImage image, int x, int y, double scale) {
+	public void renderImage(Graphics2D g2, BufferedImage image, int x, int y, double scale) {
 		int drawWidth = (int) (image.getWidth() * scale);
 		int drawHeight = (int) (image.getHeight() * scale);
 
@@ -146,7 +146,7 @@ public class Tamagotchi extends JPanel {
 	}
 
 	// --- Device Shell Drawing Methods ---
-	private BufferedImage createBufferedImage(Color bgColor, java.util.function.BiConsumer<Graphics2D, BufferedImage> drawFunc) {
+	public static BufferedImage createBufferedImage(Color bgColor, java.util.function.BiConsumer<Graphics2D, BufferedImage> drawFunc) {
 		BufferedImage image = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = image.createGraphics();
 		try {
@@ -250,7 +250,7 @@ public class Tamagotchi extends JPanel {
 	}
 
 	// --- Helper Algorithms ---
-	private void bresenhamLine(Graphics g, int x1, int y1, int x2, int y2, int pixelSize) {
+	public static void bresenhamLine(Graphics g, int x1, int y1, int x2, int y2, int pixelSize) {
 		int dx = Math.abs(x2 - x1);
 		int dy = Math.abs(y2 - y1);
 		int sx = (x1 < x2) ? 1 : -1;
@@ -280,7 +280,7 @@ public class Tamagotchi extends JPanel {
 		}
 	}
 
-	private BufferedImage floodFill(BufferedImage m, int x, int y, Color targetColor, Color replacementColor) {
+	public static BufferedImage floodFill(BufferedImage m, int x, int y, Color targetColor, Color replacementColor) {
 		Queue<Point> q = new LinkedList<>();
 		int targetRGB = targetColor.getRGB();
 		int replacementRGB = replacementColor.getRGB();
@@ -314,7 +314,7 @@ public class Tamagotchi extends JPanel {
 		return m;
 	}
 
-	private void midpointCircle(Graphics g, int xc, int yc, int r, int pixelSize) {
+	public void midpointCircle(Graphics g, int xc, int yc, int r, int pixelSize) {
 		int x = 0, y = r;
 		int d = 1 - r;
 		int dx = 2 * x, dy = 2 * y;
@@ -340,7 +340,7 @@ public class Tamagotchi extends JPanel {
 		}
 	}
 
-	private void midpointEllipse(Graphics g, int xc, int yc, int a, int b, int pixelSize) {
+	public void midpointEllipse(Graphics g, int xc, int yc, int a, int b, int pixelSize) {
 		int x = 0, y = b;
 		int aSquared = a * a, bSquared = b * b;
 		int twoASquare = 2 * aSquared, twoBSquare = 2 * bSquared;

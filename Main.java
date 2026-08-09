@@ -16,6 +16,13 @@ public class Main {
 			JFrame frame = new JFrame("Tamagotchi");
 			Tamagotchi tamagotchiPanel = new Tamagotchi();
 
+			tamagotchiPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+				@Override
+				public void mouseClicked(java.awt.event.MouseEvent e) {
+					System.out.println("x = " + e.getX() + ", y = " + e.getY());
+				}
+			});
+
 			tamagotchiPanel.setPreferredSize(new Dimension(600, 600));
 			frame.add(tamagotchiPanel);
 			frame.pack();

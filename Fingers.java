@@ -1,7 +1,37 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.function.Consumer;
 
 public class Fingers {
+	private static final Color SKIN_COLOR = Color.decode("#fff5e9");
+	private static final Color NAIL_COLOR = Color.decode("#b6465f");
+	
+	//หลักการคือสร้าง Buffered Image แล้ววาดภาพลงใน Buffer แล้วค่อยเติมสี
+	private static void filledFinger(Graphics2D destination,
+			Consumer<Graphics2D> drawOutline,
+			int skinX, int skinY,
+			int nailX, int nailY) {
+		BufferedImage fingerImage = Tamagotchi.createBufferedImage(
+				Tamagotchi.TRANSPARENT,
+				(fingerGraphics, buffer) -> {
+					fingerGraphics.setColor(Tamagotchi.lineColor);
+					drawOutline.accept(fingerGraphics);
+
+					Tamagotchi.floodFill(buffer, skinX, skinY,
+							Tamagotchi.TRANSPARENT, SKIN_COLOR);
+					Tamagotchi.floodFill(buffer, nailX, nailY,
+							Tamagotchi.TRANSPARENT, NAIL_COLOR);
+				});
+
+		destination.drawImage(fingerImage, 0, 0, null);
+	}
+
 	public static void drawFingerRightStill(Graphics2D g2d) {
+		filledFinger(g2d, Fingers::drawFingerRightStillOutline,
+				465, 540, 470, 405);
+	}
+
+	private static void drawFingerRightStillOutline(Graphics2D g2d) {
 		// finger left
 		Tamagotchi.bezierCurve(g2d, 430, 680, 
 									430, 590, 
@@ -31,9 +61,16 @@ public class Fingers {
 									505, 530, 
 									513, 575, 
 									520, 670);
+		
+		Tamagotchi.bresenhamLine(g2d, 425, 599, 525, 599, 3);
 	}
 
 	public static void drawFingerRightPress(Graphics2D g2d) {
+		filledFinger(g2d, Fingers::drawFingerRightPressOutline,
+				465, 540, 445, 405);
+	}
+
+	private static void drawFingerRightPressOutline(Graphics2D g2d) {
 		// finger left
 		Tamagotchi.bezierCurve(g2d, 430, 680, 
 									430, 590, 
@@ -63,9 +100,16 @@ public class Fingers {
 									505, 530, 
 									513, 575, 
 									520, 670);
+
+		Tamagotchi.bresenhamLine(g2d, 425, 599, 525, 599, 3);
 	}
 
 	public static void drawFingerLeftStill(Graphics2D g2d) {
+		filledFinger(g2d, Fingers::drawFingerLeftStillOutline,
+				140, 540, 140, 405);
+	}
+
+	private static void drawFingerLeftStillOutline(Graphics2D g2d) {
 		// finger left
 		Tamagotchi.bezierCurve(g2d, 175, 680, 
 									175, 590, 
@@ -95,9 +139,16 @@ public class Fingers {
 									100, 530, 
 									102, 575, 
 									85, 670);
+
+		Tamagotchi.bresenhamLine(g2d, 80, 599, 180, 599, 3);
 	}
 
 	public static void drawFingerLeftPress(Graphics2D g2d) {
+		filledFinger(g2d, Fingers::drawFingerLeftPressOutline,
+				140, 540, 165, 405);
+	}
+
+	private static void drawFingerLeftPressOutline(Graphics2D g2d) {
 	// finger left
 	Tamagotchi.bezierCurve(g2d, 175, 680, 
 								175, 590, 
@@ -127,9 +178,16 @@ public class Fingers {
 								100, 530, 
 								92, 575, 
 								85, 670);
+
+	Tamagotchi.bresenhamLine(g2d, 80, 599, 180, 599, 3);
 	}
 
 	public static void drawFingerRightReach0(Graphics2D g2d) {
+		filledFinger(g2d, Fingers::drawFingerRightReach0Outline,
+				420, 540, 380, 415);
+	}
+
+	private static void drawFingerRightReach0Outline(Graphics2D g2d) {
 		// finger left
 		Tamagotchi.bezierCurve(g2d, 410, 690, 
 									400, 600, 
@@ -159,9 +217,16 @@ public class Fingers {
 									455, 540, 
 									473, 585, 
 									480, 680);
+
+		Tamagotchi.bresenhamLine(g2d, 390, 599, 490, 599, 3);
 	}
 
 	public static void drawFingerRightReach1(Graphics2D g2d) {
+		filledFinger(g2d, Fingers::drawFingerRightReach1Outline,
+				380, 550, 340, 425);
+	}
+
+	private static void drawFingerRightReach1Outline(Graphics2D g2d) {
 		// finger left
 		Tamagotchi.bezierCurve(g2d, 370, 700, 
 									360, 610, 
@@ -191,9 +256,16 @@ public class Fingers {
 									415, 550, 
 									423, 595, 
 									440, 690);
+
+		Tamagotchi.bresenhamLine(g2d, 350, 599, 450, 599, 3);
 	}
 
 	public static void drawFingerRightPressMiddle(Graphics2D g2d) {
+		filledFinger(g2d, Fingers::drawFingerRightPressMiddleOutline,
+				335, 580, 315, 455);
+	}
+
+	private static void drawFingerRightPressMiddleOutline(Graphics2D g2d) {
 		// finger left
 		Tamagotchi.bezierCurve(g2d, 300, 730, 
 									300, 640, 
@@ -215,7 +287,7 @@ public class Fingers {
 									345, 498);
 
 		// finger right
-		Tamagotchi.bezierCurve(g2d, 345, 498, 
+		Tamagotchi.bezierCurve(g2d, 345, 498,                                                                                     
 									348, 508, 
 									358, 520, 
 									371, 558);
@@ -223,5 +295,7 @@ public class Fingers {
 									375, 580, 
 									383, 625, 
 									390, 720);
+
+		Tamagotchi.bresenhamLine(g2d, 290, 599, 400, 599, 3);
 	}
 }
