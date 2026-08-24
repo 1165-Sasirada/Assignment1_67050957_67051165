@@ -3,6 +3,7 @@ import java.awt.*;
 
 public class Main {
 	public static enum Scene {
+		GIRL,
 		IDLE,
 		BATH,
 		SLEEP,

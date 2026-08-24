@@ -66,9 +66,9 @@ public class Tamagotchi extends JPanel {
 						screenG.setColor(palePinkBG);
 						screenG.fillRect(48, 48, 640, 640);
 						DrawElement.drawFrame(screenG, pinkFrame, 9, 13, 44, scale);
-						DrawElement.drawMenuDay(screenG, scale, 56, 17);
-						DrawElement.drawWindow(screenG, 15, 18, scale, DrawElement.day);
-						PonyIdle.draw(screenG, scale, tickCount % 4);
+						// DrawElement.drawMenuDay(screenG, scale, 56, 17);
+						// DrawElement.drawWindow(screenG, 15, 18, scale, DrawElement.day);
+						// PonyIdle.draw(screenG, scale, tickCount % 4);
 						break;
 
 					case BATH:
@@ -101,6 +101,10 @@ public class Tamagotchi extends JPanel {
 						PonyEat.draw(screenG, scale, tickCount % 4);
 						break;
 				}
+
+				// TEST GIRL
+				Girl.drawGirlOutline(g2);
+
 			} finally {
 				screenG.dispose();
 			}
@@ -314,7 +318,7 @@ public class Tamagotchi extends JPanel {
 		return m;
 	}
 
-	public void midpointCircle(Graphics g, int xc, int yc, int r, int pixelSize) {
+	public static void midpointCircle(Graphics g, int xc, int yc, int r, int pixelSize) {
 		int x = 0, y = r;
 		int d = 1 - r;
 		int dx = 2 * x, dy = 2 * y;
@@ -340,7 +344,7 @@ public class Tamagotchi extends JPanel {
 		}
 	}
 
-	public void midpointEllipse(Graphics g, int xc, int yc, int a, int b, int pixelSize) {
+	public static void midpointEllipse(Graphics g, int xc, int yc, int a, int b, int pixelSize) {
 		int x = 0, y = b;
 		int aSquared = a * a, bSquared = b * b;
 		int twoASquare = 2 * aSquared, twoBSquare = 2 * bSquared;
