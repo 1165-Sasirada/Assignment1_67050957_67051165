@@ -102,8 +102,8 @@ public class Tamagotchi extends JPanel {
 						break;
 				}
 
-				// TEST GIRL
-				// Girl.drawGirlOutline(g2);
+				//TEST GIRL
+				Girl.drawGirlOutline(g2, tickCount % 8);
 
 			} finally {
 				screenG.dispose();
