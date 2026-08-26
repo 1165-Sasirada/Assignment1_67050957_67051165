@@ -66,9 +66,9 @@ public class Tamagotchi extends JPanel {
 						screenG.setColor(palePinkBG);
 						screenG.fillRect(48, 48, 640, 640);
 						DrawElement.drawFrame(screenG, pinkFrame, 9, 13, 44, scale);
-						// DrawElement.drawMenuDay(screenG, scale, 56, 17);
-						// DrawElement.drawWindow(screenG, 15, 18, scale, DrawElement.day);
-						// PonyIdle.draw(screenG, scale, tickCount % 4);
+						DrawElement.drawMenuDay(screenG, scale, 56, 17);
+						DrawElement.drawWindow(screenG, 15, 18, scale, DrawElement.day);
+						PonyIdle.draw(screenG, scale, tickCount % 4);
 						break;
 
 					case BATH:
@@ -103,7 +103,7 @@ public class Tamagotchi extends JPanel {
 				}
 
 				// TEST GIRL
-				Girl.drawGirlOutline(g2);
+				// Girl.drawGirlOutline(g2);
 
 			} finally {
 				screenG.dispose();
