@@ -64,6 +64,25 @@ public class DrawElement {
 		}
 	}
 
+	public static void drawRectangle(Graphics2D g2d, int x, int y, int width, int height, int scale) {
+		int x2 = x + width;
+		int y2 = y + height;
+		Tamagotchi.bresenhamLine(g2d, x, y, x2, y, scale);
+		Tamagotchi.bresenhamLine(g2d, x2, y, x2, y2, scale);
+		Tamagotchi.bresenhamLine(g2d, x2, y2, x, y2, scale);
+		Tamagotchi.bresenhamLine(g2d, x, y2, x, y, scale);
+	}
+
+	public static void fillRectangle(Graphics2D g2d, int x, int y, int width, int height, int scale) {
+		if (width <= 0 || height <= 0) return;
+		int step = Math.max(1, scale);
+		for (int currentY = y; currentY < y + height; currentY += step) {
+			int linePixelSize = Math.min(step, y + height - currentY);
+			int x2 = (width >= linePixelSize) ? (x + width - linePixelSize) : x;
+			Tamagotchi.bresenhamLine(g2d, x, currentY, x2, currentY, linePixelSize);
+		}
+	}
+
 	public static void drawElement(Graphics2D g2d, String[] og, int row, int col, int scale) {
 		g2d.setStroke(new BasicStroke(scale));
 
@@ -99,7 +118,8 @@ public class DrawElement {
 		int screenSize = size * scale;
 
 		int offset = scale / 2;
-		g2d.drawRect(screenX + offset, screenY + offset, screenSize - scale, screenSize - scale);
+		// g2d.drawRect(screenX + offset, screenY + offset, screenSize - scale, screenSize - scale);
+		drawRectangle(g2d, screenX + offset, screenY + offset, screenSize - scale, screenSize - scale, scale);
 	}
 
 	public static void drawMenuDay(Graphics2D g2d, int scale, int row, int col) {
@@ -185,7 +205,10 @@ public class DrawElement {
 		int midY = y1 + (size / 2);
 
 		g2d.setColor(timeOfDay);
-		g2d.fillRect(x1, y1, size, size);
+
+		// g2d.fillRect(x1, y1, size, size);
+		fillRectangle(g2d, x1, y1 + scale, size, size, scale);
+
 		g2d.setStroke(new BasicStroke(scale));
 
 		// Window glare
@@ -194,28 +217,36 @@ public class DrawElement {
 		int startY = y1 + scale;
 
 		for (int currentY = startY; currentY < y2 - scale; currentY += scale) {
-			g2d.fillRect(startX, currentY, scale, scale);
-			g2d.fillRect(startX + (2 * scale), currentY, scale, scale);
+			// g2d.fillRect(startX, currentY, scale, scale);
+			// g2d.fillRect(startX + (2 * scale), currentY, scale, scale);
+			fillRectangle(g2d, startX, currentY, scale, scale, scale);
+			fillRectangle(g2d, startX + (2 * scale), currentY, scale, scale, scale);
 			startX -= scale;
 		}
 
 		// Wooden frame
 		drawFrame(g2d, wood, row, col, 16, scale);
 		g2d.setColor(wood);
-		g2d.drawLine(x1 + scale, midY, x2 - scale, midY);
-		g2d.drawLine(midX, y1 + scale, midX, y2 - scale);
+		// g2d.drawLine(x1 + scale, midY, x2 - scale, midY);
+		// g2d.drawLine(midX, y1 + scale, midX, y2 - scale);
+		Tamagotchi.bresenhamLine(g2d, x1 + scale, midY, x2 - scale, midY, scale);
+		Tamagotchi.bresenhamLine(g2d, midX, y1 + scale, midX, y2 - scale, scale);
 
 		// Curtain rod
 		g2d.setColor(gold);
-		g2d.drawLine(x1 - scale, y1 - scale, x2 + scale, y1 - scale);
-		g2d.drawLine(x1 - scale, y1 - 2 * scale, x1 - scale, y1);
-		g2d.drawLine(x2 + scale, y1 - 2 * scale, x2 + scale, y1);
+		// g2d.drawLine(x1 - scale, y1 - scale, x2 + scale, y1 - scale);
+		// g2d.drawLine(x1 - scale, y1 - 2 * scale, x1 - scale, y1);
+		// g2d.drawLine(x2 + scale, y1 - 2 * scale, x2 + scale, y1);
+		Tamagotchi.bresenhamLine(g2d, x1 - scale, y1 - 2 * scale, x2 + scale, y1 - 2 * scale, scale);
+		Tamagotchi.bresenhamLine(g2d, x1 - scale, y1 - 3 * scale, x1 - scale, y1 - scale, scale);
+    	Tamagotchi.bresenhamLine(g2d, x2 + scale, y1 - 3 * scale, x2 + scale, y1 - scale, scale);
 
 		// Curtains
 		int step = 0;
 		for (int currentX = x1; currentX < midX - scale; currentX += scale) {
 			g2d.setColor((step % 2 == 0) ? curtain : curtain2);
-			g2d.drawLine(currentX, y1 - scale, currentX, y1 + size);
+			// g2d.drawLine(currentX, y1 - scale, currentX, y1 + size);
+			Tamagotchi.bresenhamLine(g2d, currentX, y1 - 2 * scale, currentX, y1 + size, scale);
 			step++;
 		}
 	}
@@ -225,21 +256,32 @@ public class DrawElement {
 		int y = col * scale;
 
 		g2d.setColor(tub);
-		g2d.fillRect(x, y, 21 * scale, 2 * scale);
-		g2d.fillRect(x + 2 * scale, y + 2 * scale, 17 * scale, 4 * scale);
-		g2d.fillRect(x + 3 * scale, y + 6 * scale, 15 * scale, scale / 2);
-		g2d.fillRect(x + 4 * scale, y + 6 * scale, 13 * scale, scale);
+		// g2d.fillRect(x, y, 21 * scale, 2 * scale);
+		// g2d.fillRect(x + 2 * scale, y + 2 * scale, 17 * scale, 4 * scale);
+		// g2d.fillRect(x + 3 * scale, y + 6 * scale, 15 * scale, scale / 2);
+		// g2d.fillRect(x + 4 * scale, y + 6 * scale, 13 * scale, scale);
+		fillRectangle(g2d, x, y, 21 * scale, 2 * scale, scale);
+		fillRectangle(g2d, x + 2 * scale, y + 2 * scale, 17 * scale, 4 * scale, scale);
+		fillRectangle(g2d, x + 3 * scale, y + 6 * scale, 15 * scale, scale / 2, scale);
+		fillRectangle(g2d, x + 4 * scale, y + 6 * scale, 13 * scale, scale, scale);
 
 		g2d.setColor(tubShadow);
-		g2d.fillRect(x + scale, y + 2 * scale, 19 * scale, scale / 2);
-		g2d.fillRect(x + 5 * scale, y + 7 * scale, 3 * scale, scale / 2);
-		g2d.fillRect(x + 13 * scale, y + 7 * scale, 3 * scale, scale / 2);
+		// g2d.fillRect(x + scale, y + 2 * scale, 19 * scale, scale / 2);
+		// g2d.fillRect(x + 5 * scale, y + 7 * scale, 3 * scale, scale / 2);
+		// g2d.fillRect(x + 13 * scale, y + 7 * scale, 3 * scale, scale / 2);
+		fillRectangle(g2d, x + scale, y + 2 * scale, 19 * scale, scale / 2, scale);
+		fillRectangle(g2d, x + 5 * scale, y + 7 * scale, 3 * scale, scale / 2, scale);
+		fillRectangle(g2d, x + 13 * scale, y + 7 * scale, 3 * scale, scale / 2, scale);
 
 		g2d.setColor(tubLight);
-		g2d.fillRect(x, y, 16 * scale, scale / 2);
-		g2d.fillRect(x, y, 13 * scale, scale);
-		g2d.fillRect(x, y + scale, 10 * scale, scale / 2);
-		g2d.fillRect(x + 18 * scale, y, 3 * scale, scale / 2);
+		// g2d.fillRect(x, y, 16 * scale, scale / 2);
+		// g2d.fillRect(x, y, 13 * scale, scale);
+		// g2d.fillRect(x, y + scale, 10 * scale, scale / 2);
+		// g2d.fillRect(x + 18 * scale, y, 3 * scale, scale / 2);
+		fillRectangle(g2d, x, y, 16 * scale, scale / 2, scale);
+		fillRectangle(g2d, x, y, 13 * scale, scale, scale);
+		fillRectangle(g2d, x, y + scale, 10 * scale, scale / 2, scale);
+		fillRectangle(g2d, x + 18 * scale, y, 3 * scale, scale / 2, scale);
 	}
 
 	public static void randomBubbles(Graphics2D g2d, int scale) {
@@ -275,7 +317,8 @@ public class DrawElement {
 					break;
 				case 2:
 					g2d.setColor(bubbleShadow);
-					g2d.fillRect(randomCol * scale, randomRow * scale, scale, scale);
+					// g2d.fillRect(randomCol * scale, randomRow * scale, scale, scale);
+					fillRectangle(g2d, randomCol * scale, randomRow * scale, scale, scale, scale);
 					break;
 			}
 		}
