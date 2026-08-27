@@ -1,4 +1,7 @@
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Sparkle {
@@ -7,38 +10,59 @@ public class Sparkle {
 		int height = 600;
 		int margin = 100;
 
-		for (int i = 0; i < 8; i++) {
-			int startX, startY;
-			int side = ThreadLocalRandom.current().nextInt(0, 4);
+		int minDistance = 50;
 
-			switch (side) {
-				case 0: // Top border (full width, 0 to 100 Y)
-					startX = ThreadLocalRandom.current().nextInt(0, width - 60);
-					startY = ThreadLocalRandom.current().nextInt(0, margin + 30);
-					break;
-				case 1: // Bottom border (full width, 500 to 600 Y)
-					startX = ThreadLocalRandom.current().nextInt(0, width - 60);
-					startY = ThreadLocalRandom.current().nextInt(height - margin, height - 60);
-					break;
-				case 2: // Left border (0 to 100 X, inner Y)
-					startX = ThreadLocalRandom.current().nextInt(0, margin);
-					startY = ThreadLocalRandom.current().nextInt(margin, height - margin);
-					break;
-				default: // Right border (500 to 600 X, inner Y)
-					startX = ThreadLocalRandom.current().nextInt(width - margin, width - 60);
-					startY = ThreadLocalRandom.current().nextInt(margin, height - margin);
-					break;
+		List<Point> placedPoints = new ArrayList<>();
+
+		for (int i = 0; i < 8; i++) {
+			int startX = 0, startY = 0;
+			boolean validPosition = false;
+			int attemps = 0;
+
+			while (!validPosition && attemps < 50) {
+				attemps++;
+				int side = ThreadLocalRandom.current().nextInt(0, 4);
+
+				switch (side) {
+					case 0: // Top border (full width, 0 to 100 Y)
+						startX = ThreadLocalRandom.current().nextInt(0, width - 60);
+						startY = ThreadLocalRandom.current().nextInt(0, margin + 30);
+						break;
+					case 1: // Bottom border (full width, 500 to 600 Y)
+						startX = ThreadLocalRandom.current().nextInt(0, width - 60);
+						startY = ThreadLocalRandom.current().nextInt(height - margin, height - 60);
+						break;
+					case 2: // Left border (0 to 100 X, inner Y)
+						startX = ThreadLocalRandom.current().nextInt(0, margin);
+						startY = ThreadLocalRandom.current().nextInt(margin, height - margin);
+						break;
+					default: // Right border (500 to 600 X, inner Y)
+						startX = ThreadLocalRandom.current().nextInt(width - margin, width - 60);
+						startY = ThreadLocalRandom.current().nextInt(margin, height - margin);
+						break;
+				}
+
+				validPosition = true;
+				for (Point p : placedPoints) {
+					if (Math.hypot(p.x - startX, p.y - startY) < minDistance) {
+						validPosition = false;
+						break;
+					}
+				}
 			}
 
-			int type = ThreadLocalRandom.current().nextInt(0, 2);
+			if (validPosition) {
+				placedPoints.add(new Point(startX, startY));
 
-			switch (type) {
-				case 0:
-					sparkle0(g2d, startX, startY);
-					break;
-				default:
-					sparkle1(g2d, startX, startY);
-					break;
+				int type = ThreadLocalRandom.current().nextInt(0, 2);
+				switch (type) {
+					case 0:
+						sparkle0(g2d, startX, startY);
+						break;
+					default:
+						sparkle1(g2d, startX, startY);
+						break;
+				}
 			}
 		}
 	}
