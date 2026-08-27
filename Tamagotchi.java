@@ -47,12 +47,13 @@ public class Tamagotchi extends JPanel {
 		try {
 			if (Main.getCurrentScene() == Main.Scene.GIRL) {
 				Girl.drawGirlOutline(g2, tickCount % 8);
+				Sparkle.drawSparkle(g2);
 				return;
 			}
 
 			// 1. Draw Tamagotchi shell
 			renderImage(g2,tamagotchiDeviceImage, 0, 0, 1.0);
-
+			
 			// 2. Setup screen graphics boundary (Screen viewport)
 			Graphics2D screenG = (Graphics2D) g2.create();
 			try {
@@ -136,6 +137,7 @@ public class Tamagotchi extends JPanel {
 				Fingers.drawFingerLeftStill(g2);
 			}
 
+			Sparkle.drawSparkle(g2);
 
 		} finally {
 			g2.dispose();
