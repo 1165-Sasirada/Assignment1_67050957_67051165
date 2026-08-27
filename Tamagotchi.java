@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.*;
@@ -25,9 +26,18 @@ public class Tamagotchi extends JPanel {
 	public static final Color buttonColor = Color.decode("#FFE778");
 	public static final Color buttonShadow = Color.decode("#D9BD4F");
 
+	private BufferedImage referenceImage;
+
 	public Tamagotchi() {
 		setBackground(Color.WHITE);
-		tamagotchiDeviceImage = createBufferedImage(TRANSPARENT, this::drawTamagotchiShell);
+		tamagotchiDeviceImage = createBufferedImage(TRANSPARENT, this::drawTamagotchiShell);		
+		try {
+        	referenceImage = ImageIO.read(
+            Tamagotchi.class.getResource("./FrameGirl.png")
+        );
+    	} catch (Exception e) {
+        	e.printStackTrace();
+    	}
 	}
 
 	public void tick() {
@@ -46,7 +56,12 @@ public class Tamagotchi extends JPanel {
 
 		try {
 			if (Main.getCurrentScene() == Main.Scene.GIRL) {
-				Girl.drawGirlOutline(g2, tickCount % 8);
+				g2.setColor(Color.decode("#fef9c1"));
+				g2.fillRect(0, 0, getWidth(), getHeight());
+
+				Girl.drawGirl(g2, tickCount % 8);
+
+				g2.setColor(Color.decode("#514033"));
 				Sparkle.drawSparkle(g2);
 				return;
 			}
@@ -103,6 +118,22 @@ public class Tamagotchi extends JPanel {
 						DrawElement.drawWindow(screenG, 15, 18, scale, DrawElement.day);
 						PonyIdle.draw(screenG, scale, tickCount % 4);
 						PonyEat.draw(screenG, scale, tickCount % 4);
+						break;
+					case GIRL:
+						g2.setColor(Color.decode("#FCEAF2"));
+						g2.fillRect(0, 0, getWidth(), getHeight());
+						Sparkle.drawSparkle(g2);
+						Girl.drawGirl(g2, tickCount % 8);
+
+						return;
+					case GIRLPEEK:
+						g2.setColor(Color.decode("#FCEAF2"));
+    					g2.fillRect(0, 0, getWidth(), getHeight());
+    					GirlPeek.draw(g2, tickCount % 30);
+
+    					return;
+    				
+						default:
 						break;
 				}
 
@@ -385,7 +416,7 @@ public class Tamagotchi extends JPanel {
 		}
 	}
 
-	public static void bezierCurve(Graphics2D g2d, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4) {
+	public static void bezierCurve(Graphics2D g2d, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4,int pixelSize) {
 		int numPoints = 500;
 		double step = 1.0 / numPoints;
 
@@ -400,7 +431,7 @@ public class Tamagotchi extends JPanel {
 					3 * Math.pow(t, 2) * (1 - t) * y3 +
 					Math.pow(t, 3) * y4);
 
-			plot(g2d, x, y, 3);
+			plot(g2d, x, y, pixelSize);
 		}
 	}
 

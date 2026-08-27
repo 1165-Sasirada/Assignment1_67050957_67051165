@@ -4,13 +4,14 @@ import java.awt.*;
 public class Main {
 	public static enum Scene {
 		GIRL,
+		GIRLPEEK,
 		IDLE,
 		BATH,
 		SLEEP,
 		EAT
 	}
 
-	private static Scene currentScene = Scene.IDLE;
+	private static Scene currentScene = Scene.GIRL;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
@@ -47,7 +48,7 @@ public class Main {
 				} else {
 					setScene(Scene.BATH);
 				}
-
+				
 				tamagotchiPanel.tick();
 			});
 			timer.start();

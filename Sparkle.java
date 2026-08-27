@@ -3,8 +3,12 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 public class Sparkle {
+	private static final Color SPARKLE_COLOR = Color.decode("#FDD8E0");
+	private static BufferedImage sparkleImage;
 	public static void drawSparkle(Graphics2D g2d) {
 		int width = 600;
 		int height = 600;
@@ -68,10 +72,10 @@ public class Sparkle {
 	}
 
 	private static void sparkle0(Graphics2D g2d, int x, int y) {
-		Tamagotchi.bezierCurve(g2d, x, y, x - 10, y + 30, x - 10, y + 20, x - 30, y + 30);
-		Tamagotchi.bezierCurve(g2d, x, y, x + 10, y + 30, x + 10, y + 20, x + 30, y + 30);
-		Tamagotchi.bezierCurve(g2d, x, y + 60, x - 10, y + 30, x - 10, y + 40, x - 30, y + 30);
-		Tamagotchi.bezierCurve(g2d, x, y + 60, x + 10, y + 30, x + 10, y + 40, x + 30, y + 30);
+		Tamagotchi.bezierCurve(g2d, x, y, x - 10, y + 30, x - 10, y + 20, x - 30, y + 30,3);
+		Tamagotchi.bezierCurve(g2d, x, y, x + 10, y + 30, x + 10, y + 20, x + 30, y + 30,3);
+		Tamagotchi.bezierCurve(g2d, x, y + 60, x - 10, y + 30, x - 10, y + 40, x - 30, y + 30,3);
+		Tamagotchi.bezierCurve(g2d, x, y + 60, x + 10, y + 30, x + 10, y + 40, x + 30, y + 30,3);
 	}
 
 	private static void sparkle1(Graphics2D g2d, int x, int y) {
@@ -80,4 +84,6 @@ public class Sparkle {
 		Tamagotchi.bresenhamLine(g2d, x - 10, y + 10, x, y + 20, 3);
 		Tamagotchi.bresenhamLine(g2d, x + 10, y + 10, x, y + 20, 3);
 	}
+
+	
 }
