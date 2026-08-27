@@ -2,15 +2,16 @@ import java.awt.Graphics2D;
 
 public class Girl {
 	public static void drawGirlOutline(Graphics2D g2d, int frameIndex) {
-		boolean isBlinking = frameIndex == 7;
+		boolean isBlinking = frameIndex % 4 == 1;
 
 		// Hair Left
 		Tamagotchi.bezierCurve(g2d, 300, 115, 230, 75, 150, 195, 150, 255);
 		Tamagotchi.bezierCurve(g2d, 150, 255, 160, 310, 165, 340, 150, 380);
-		Tamagotchi.bezierCurve(g2d, 150, 380, 160, 310, 165, 340, 150, 480);
+		Tamagotchi.bezierCurve(g2d, 150, 380, 130, 430, 125, 480, 165, 520);
 		// Hair Right
 		Tamagotchi.bezierCurve(g2d, 300, 115, 370, 75, 450, 195, 450, 255);
 		Tamagotchi.bezierCurve(g2d, 450, 255, 440, 310, 435, 340, 450, 380);
+		Tamagotchi.bezierCurve(g2d, 450, 380, 470, 430, 475, 480, 435, 520);
 
 		// Middle Bang
 		Tamagotchi.bezierCurve(g2d, 278, 256, 300, 262, 322, 262, 344, 256);
@@ -66,10 +67,10 @@ public class Girl {
 		// Eyebrow Right
 		Tamagotchi.bezierCurve(g2d, 332, 250, 347, 236, 365, 245, 370, 255);
 
-		if(isBlinking){
+		if (isBlinking) {
 			Tamagotchi.bezierCurve(g2d, 234, 280, 245, 288, 257, 288, 268, 280);
 			Tamagotchi.bezierCurve(g2d, 332, 280, 343, 288, 355, 288, 366, 280);
-		}else{
+		} else {
 			// Eyelash Left
 			Tamagotchi.bezierCurve(g2d, 234, 280, 240, 270, 253, 256, 268, 270);
 			Tamagotchi.bresenhamLine(g2d, 238, 270, 233, 265, 3);
@@ -83,7 +84,6 @@ public class Girl {
 			Tamagotchi.midpointCircle(g2d, 256, 285, 15, 3);
 			// Eye Right
 			Tamagotchi.midpointCircle(g2d, 344, 285, 15, 3);
-
 		}
 
 		// Nose

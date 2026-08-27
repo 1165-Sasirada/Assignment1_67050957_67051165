@@ -33,18 +33,18 @@ public class Main {
 
 			// Controls animation tick rate and scene progression
 			Timer timer = new Timer(500, e -> {
-				int currentTick = tamagotchiPanel.getTicks() % 39;
+				int currentTick = tamagotchiPanel.getTicks() % 48;
+
 				setScene(Scene.GIRL);
-				if (currentTick < 10) {
+				if (currentTick < 8) {
+					setScene(Scene.GIRL);
+				} else if (currentTick < 18) {
 					setScene(Scene.IDLE);
-				}
-				else if (currentTick < 20) {
+				} else if (currentTick < 28) {
 					setScene(Scene.SLEEP);
-				}
-				else if (currentTick < 31) {
+				} else if (currentTick < 39) {
 					setScene(Scene.EAT);
-				}
-				else {
+				} else {
 					setScene(Scene.BATH);
 				}
 

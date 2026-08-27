@@ -1,4 +1,5 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
@@ -44,21 +45,23 @@ public class Tamagotchi extends JPanel {
 		Graphics2D g2 = (Graphics2D) g.create();
 
 		try {
-			// 1. Draw outer Tamagotchi Device Frame
+			if (Main.getCurrentScene() == Main.Scene.GIRL) {
+				Girl.drawGirlOutline(g2, tickCount % 8);
+				return;
+			}
+
+			// 1. Draw Tamagotchi shell
 			renderImage(g2,tamagotchiDeviceImage, 0, 0, 1.0);
 
 			// 2. Setup screen graphics boundary (Screen viewport)
 			Graphics2D screenG = (Graphics2D) g2.create();
 			try {
+
 				screenG.clipRect(185, 168, 230, 230);
 				screenG.translate(168, 151);
 				screenG.scale(0.42, 0.42);
 
 				int scale = Math.max(1, Math.min(getWidth(), getHeight()) / CANVAS_GRID_SIZE);
-
-				// Render permanent background screen components
-				// DrawElement.drawFrame(screenG, pinkFrame, 9, 13, 44, scale);
-				// DrawElement.drawMenu(screenG, scale, 56, 17);
 
 				// 3. Render content based on active Scene
 				switch (Main.getCurrentScene()) {
@@ -102,32 +105,29 @@ public class Tamagotchi extends JPanel {
 						break;
 				}
 
-				//TEST GIRL
-				Girl.drawGirlOutline(g2, tickCount % 8);
-
 			} finally {
 				screenG.dispose();
 			}
 
-			int cycleTick = tickCount % 36;
+			int cycleTick = tickCount % 48;
 
-			if (cycleTick >= 8 && cycleTick < 10) {
+			if (cycleTick >= 16 && cycleTick < 18) {
 				Fingers.drawFingerRightStill(g2);
 				Fingers.drawFingerLeftPress(g2);
 			}
-			else if (cycleTick >= 18 && cycleTick < 20) {
+			else if (cycleTick >= 26 && cycleTick < 28) {
 				Fingers.drawFingerRightPress(g2);
 				Fingers.drawFingerLeftStill(g2);
 			}
-			else if (cycleTick == 28) {
+			else if (cycleTick == 36) {
 				Fingers.drawFingerRightReach0(g2);
 				Fingers.drawFingerLeftStill(g2);
 			}
-			else if (cycleTick == 29) {
+			else if (cycleTick == 37) {
 				Fingers.drawFingerRightReach1(g2);
 				Fingers.drawFingerLeftStill(g2);
 			}
-			else if (cycleTick == 30) {
+			else if (cycleTick == 38) {
 				Fingers.drawFingerRightPressMiddle(g2);
 				Fingers.drawFingerLeftStill(g2);
 			}
