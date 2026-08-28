@@ -1,4 +1,3 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.*;
@@ -27,19 +26,10 @@ public class Tamagotchi extends JPanel {
 	public static final Color buttonColor = Color.decode("#FFE778");
 	public static final Color buttonShadow = Color.decode("#D9BD4F");
 
-	private BufferedImage referenceImage;
-
 	public Tamagotchi() {
 		// Color definitions พื้นหลังฉากทามาก็อตจิ
 		setBackground(frameColor);
-		tamagotchiDeviceImage = createBufferedImage(TRANSPARENT, this::drawTamagotchiShell);		
-		try {
-        	referenceImage = ImageIO.read(
-            Tamagotchi.class.getResource("./PonyWalk1.png")
-        );
-    	} catch (Exception e) {
-        	e.printStackTrace();
-    	}
+		tamagotchiDeviceImage = createBufferedImage(TRANSPARENT, this::drawTamagotchiShell);
 	}
 
 	public void tick() {
