@@ -51,29 +51,54 @@ public class Main {
 
 			// tamagotchiPanel.tick();
 			// });
+
+			// Timer timer = new Timer(500, e -> {
+			// int currentTick = tamagotchiPanel.getTicks() % 66;
+
+			// if (currentTick < 8) {
+			// setScene(Scene.SLEEP); // 4 วินาที
+
+			// } else if (currentTick < 16) {
+			// setScene(Scene.IDLE); // 4 วินาที
+
+			// } else if (currentTick < 24) {
+			// setScene(Scene.BATH); // 4 วินาที
+
+			// } else if (currentTick < 32) {
+			// setScene(Scene.EAT); // 4 วินาที
+
+			// } else if (currentTick < 40) {
+			// setScene(Scene.IDLE); // 4 วินาที: กลับสู่ปกติ
+
+			// } else if (currentTick < 46) {
+			// setScene(Scene.GIRL); // 3 วินาที: คนยืน
+
+			// } else {
+			// setScene(Scene.GIRLPEEK); // 10 วินาที: เดิน → เห็น → ตกใจ
+			// }
+
+			// tamagotchiPanel.tick();
+			// });
+			// timer.start();
+			// });
+
 			Timer timer = new Timer(500, e -> {
-				int currentTick = tamagotchiPanel.getTicks() % 66;
+				int currentTick = tamagotchiPanel.getTicks() % 60;
 
 				if (currentTick < 8) {
-					setScene(Scene.SLEEP); // 4 วินาที
-
-				} else if (currentTick < 16) {
-					setScene(Scene.IDLE); // 4 วินาที
-
-				} else if (currentTick < 24) {
-					setScene(Scene.BATH); // 4 วินาที
-
+					setScene(Scene.SLEEP); 			// Ticks 0-7 (4 seconds)
+				} else if (currentTick < 12) {
+					setScene(Scene.IDLE); 			// Ticks 8-11 (2 seconds)
+				} else if (currentTick < 20) {
+					setScene(Scene.BATH);			// Ticks 12-19 (4 seconds)
+				} else if (currentTick < 28) {
+					setScene(Scene.EAT); 			// Ticks 20-27 (4 seconds)
 				} else if (currentTick < 32) {
-					setScene(Scene.EAT); // 4 วินาที
-
+					setScene(Scene.IDLE); 			// Ticks 28-31 (2 seconds)
 				} else if (currentTick < 40) {
-					setScene(Scene.IDLE); // 4 วินาที: กลับสู่ปกติ
-
-				} else if (currentTick < 46) {
-					setScene(Scene.GIRL); // 3 วินาที: คนยืน
-
+					setScene(Scene.GIRL); 			// Ticks 32-39 (4 seconds)
 				} else {
-					setScene(Scene.GIRLPEEK); // 10 วินาที: เดิน → เห็น → ตกใจ
+					setScene(Scene.GIRLPEEK); 		// Ticks 40-59 (10 seconds)
 				}
 
 				tamagotchiPanel.tick();

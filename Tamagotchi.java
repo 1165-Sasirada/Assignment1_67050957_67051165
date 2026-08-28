@@ -31,7 +31,7 @@ public class Tamagotchi extends JPanel {
 
 	public Tamagotchi() {
 		// Color definitions พื้นหลังฉากทามาก็อตจิ
-		setBackground(Color.PINK);
+		setBackground(frameColor);
 		tamagotchiDeviceImage = createBufferedImage(TRANSPARENT, this::drawTamagotchiShell);		
 		try {
         	referenceImage = ImageIO.read(
@@ -157,37 +157,93 @@ public class Tamagotchi extends JPanel {
 			// Keep finger animation on the same 66-tick timeline as Main.
 			// The press is shown at the end of the current scene; the next scene
 			// starts on the following tick.
-			int cycleTick = tickCount % 66;
+			// int cycleTick = tickCount % 66;
 
-			// SLEEP -> IDLE (IDLE starts at displayed tick 9)
-			if (cycleTick >= 7 && cycleTick <= 8) {
+			// // SLEEP -> IDLE (IDLE starts at displayed tick 9)
+			// if (cycleTick >= 7 && cycleTick <= 8) {
+			// 	Fingers.drawFingerRightStill(g2);
+			// 	Fingers.drawFingerLeftPress(g2);
+			// }
+			// // IDLE -> BATH (BATH starts at displayed tick 17)
+			// else if (cycleTick >= 15 && cycleTick <= 16) {
+			// 	Fingers.drawFingerRightPress(g2);
+			// 	Fingers.drawFingerLeftStill(g2);
+			// }
+			// // BATH -> EAT: move toward the middle button, then press it.
+			// else if (cycleTick == 22) {
+			// 	Fingers.drawFingerRightReach0(g2);
+			// 	Fingers.drawFingerLeftStill(g2);
+			// }
+			// else if (cycleTick == 23) {
+			// 	Fingers.drawFingerRightReach1(g2);
+			// 	Fingers.drawFingerLeftStill(g2);
+			// }
+			// else if (cycleTick == 24) {
+			// 	Fingers.drawFingerRightPressMiddle(g2);
+			// 	Fingers.drawFingerLeftStill(g2);
+			// }
+			// // EAT -> IDLE (IDLE starts at displayed tick 33)
+			// else if (cycleTick >= 31 && cycleTick <= 32) {
+			// 	Fingers.drawFingerRightPress(g2);
+			// 	Fingers.drawFingerLeftStill(g2);
+			// }
+			// else {
+			// 	Fingers.drawFingerRightStill(g2);
+			// 	Fingers.drawFingerLeftStill(g2);
+			// }
+
+			int cycleTick = tickCount % 60;
+
+			if (cycleTick < 6) {
+				// 6 ticks: SLEEP
+				Fingers.drawFingerRightStill(g2);
+				Fingers.drawFingerLeftStill(g2);
+			} else if (cycleTick < 8) {
+				// 2 ticks: WAKE UP
 				Fingers.drawFingerRightStill(g2);
 				Fingers.drawFingerLeftPress(g2);
-			}
-			// IDLE -> BATH (BATH starts at displayed tick 17)
-			else if (cycleTick >= 15 && cycleTick <= 16) {
-				Fingers.drawFingerRightPress(g2);
+			} else if (cycleTick == 8) {
+				// 1 tick: IDLE
+				Fingers.drawFingerRightStill(g2);
 				Fingers.drawFingerLeftStill(g2);
-			}
-			// BATH -> EAT: move toward the middle button, then press it.
-			else if (cycleTick == 22) {
+			} else if (cycleTick == 9) {
+				// 1 tick: IDLE
 				Fingers.drawFingerRightReach0(g2);
 				Fingers.drawFingerLeftStill(g2);
-			}
-			else if (cycleTick == 23) {
+			} else if (cycleTick == 10) {
+				// 1 tick: IDLE
 				Fingers.drawFingerRightReach1(g2);
 				Fingers.drawFingerLeftStill(g2);
-			}
-			else if (cycleTick == 24) {
+			} else if (cycleTick == 11) {
+				// 1 tick: IDLE
 				Fingers.drawFingerRightPressMiddle(g2);
 				Fingers.drawFingerLeftStill(g2);
-			}
-			// EAT -> IDLE (IDLE starts at displayed tick 33)
-			else if (cycleTick >= 31 && cycleTick <= 32) {
+			} else if (cycleTick == 12) {
+				// 1 tick: BATH
+				Fingers.drawFingerRightReach1(g2);
+				Fingers.drawFingerLeftStill(g2);
+			} else if (cycleTick == 13) {
+				// 1 tick: BATH
+				Fingers.drawFingerRightReach0(g2);
+				Fingers.drawFingerLeftStill(g2);
+			} else if (cycleTick < 18) {
+				// 4 ticks: BATH
+				Fingers.drawFingerRightStill(g2);
+				Fingers.drawFingerLeftStill(g2);
+			} else if (cycleTick < 20) {
+				// 2 ticks: BATH
 				Fingers.drawFingerRightPress(g2);
 				Fingers.drawFingerLeftStill(g2);
-			}
-			else {
+			} else if (cycleTick < 26) {
+				// 6 ticks: EAT
+				Fingers.drawFingerRightStill(g2);
+				Fingers.drawFingerLeftStill(g2);
+			} else if (cycleTick < 28) {
+				// 2 ticks: STOP EAT
+				Fingers.drawFingerRightPress(g2);
+				Fingers.drawFingerLeftStill(g2);
+			} else if (cycleTick < 32) {
+				// 4 ticks: IDLE
 				Fingers.drawFingerRightStill(g2);
 				Fingers.drawFingerLeftStill(g2);
 			}
