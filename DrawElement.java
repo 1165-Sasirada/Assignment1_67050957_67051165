@@ -118,7 +118,6 @@ public class DrawElement {
 		int screenSize = size * scale;
 
 		int offset = scale / 2;
-		// g2d.drawRect(screenX + offset, screenY + offset, screenSize - scale, screenSize - scale);
 		drawRectangle(g2d, screenX + offset, screenY + offset, screenSize - scale, screenSize - scale, scale);
 	}
 
@@ -206,7 +205,6 @@ public class DrawElement {
 
 		g2d.setColor(timeOfDay);
 
-		// g2d.fillRect(x1, y1, size, size);
 		fillRectangle(g2d, x1, y1 + scale, size, size, scale);
 
 		g2d.setStroke(new BasicStroke(scale));
@@ -217,8 +215,6 @@ public class DrawElement {
 		int startY = y1 + scale;
 
 		for (int currentY = startY; currentY < y2 - scale; currentY += scale) {
-			// g2d.fillRect(startX, currentY, scale, scale);
-			// g2d.fillRect(startX + (2 * scale), currentY, scale, scale);
 			fillRectangle(g2d, startX, currentY, scale, scale, scale);
 			fillRectangle(g2d, startX + (2 * scale), currentY, scale, scale, scale);
 			startX -= scale;
@@ -227,16 +223,11 @@ public class DrawElement {
 		// Wooden frame
 		drawFrame(g2d, wood, row, col, 16, scale);
 		g2d.setColor(wood);
-		// g2d.drawLine(x1 + scale, midY, x2 - scale, midY);
-		// g2d.drawLine(midX, y1 + scale, midX, y2 - scale);
 		Tamagotchi.bresenhamLine(g2d, x1 + scale, midY, x2 - scale, midY, scale);
 		Tamagotchi.bresenhamLine(g2d, midX, y1 + scale, midX, y2 - scale, scale);
 
 		// Curtain rod
 		g2d.setColor(gold);
-		// g2d.drawLine(x1 - scale, y1 - scale, x2 + scale, y1 - scale);
-		// g2d.drawLine(x1 - scale, y1 - 2 * scale, x1 - scale, y1);
-		// g2d.drawLine(x2 + scale, y1 - 2 * scale, x2 + scale, y1);
 		Tamagotchi.bresenhamLine(g2d, x1 - scale, y1 - 2 * scale, x2 + scale, y1 - 2 * scale, scale);
 		Tamagotchi.bresenhamLine(g2d, x1 - scale, y1 - 3 * scale, x1 - scale, y1 - scale, scale);
     	Tamagotchi.bresenhamLine(g2d, x2 + scale, y1 - 3 * scale, x2 + scale, y1 - scale, scale);
@@ -245,7 +236,6 @@ public class DrawElement {
 		int step = 0;
 		for (int currentX = x1; currentX < midX - scale; currentX += scale) {
 			g2d.setColor((step % 2 == 0) ? curtain : curtain2);
-			// g2d.drawLine(currentX, y1 - scale, currentX, y1 + size);
 			Tamagotchi.bresenhamLine(g2d, currentX, y1 - 2 * scale, currentX, y1 + size, scale);
 			step++;
 		}
@@ -255,29 +245,21 @@ public class DrawElement {
 		int x = row * scale;
 		int y = col * scale;
 
+		// Tub
 		g2d.setColor(tub);
-		// g2d.fillRect(x, y, 21 * scale, 2 * scale);
-		// g2d.fillRect(x + 2 * scale, y + 2 * scale, 17 * scale, 4 * scale);
-		// g2d.fillRect(x + 3 * scale, y + 6 * scale, 15 * scale, scale / 2);
-		// g2d.fillRect(x + 4 * scale, y + 6 * scale, 13 * scale, scale);
 		fillRectangle(g2d, x, y, 21 * scale, 2 * scale, scale);
 		fillRectangle(g2d, x + 2 * scale, y + 2 * scale, 17 * scale, 4 * scale, scale);
 		fillRectangle(g2d, x + 3 * scale, y + 6 * scale, 15 * scale, scale / 2, scale);
 		fillRectangle(g2d, x + 4 * scale, y + 6 * scale, 13 * scale, scale, scale);
 
+		// Tub Shadow
 		g2d.setColor(tubShadow);
-		// g2d.fillRect(x + scale, y + 2 * scale, 19 * scale, scale / 2);
-		// g2d.fillRect(x + 5 * scale, y + 7 * scale, 3 * scale, scale / 2);
-		// g2d.fillRect(x + 13 * scale, y + 7 * scale, 3 * scale, scale / 2);
 		fillRectangle(g2d, x + scale, y + 2 * scale, 19 * scale, scale / 2, scale);
 		fillRectangle(g2d, x + 5 * scale, y + 7 * scale, 3 * scale, scale / 2, scale);
 		fillRectangle(g2d, x + 13 * scale, y + 7 * scale, 3 * scale, scale / 2, scale);
 
+		// Tub Light
 		g2d.setColor(tubLight);
-		// g2d.fillRect(x, y, 16 * scale, scale / 2);
-		// g2d.fillRect(x, y, 13 * scale, scale);
-		// g2d.fillRect(x, y + scale, 10 * scale, scale / 2);
-		// g2d.fillRect(x + 18 * scale, y, 3 * scale, scale / 2);
 		fillRectangle(g2d, x, y, 16 * scale, scale / 2, scale);
 		fillRectangle(g2d, x, y, 13 * scale, scale, scale);
 		fillRectangle(g2d, x, y + scale, 10 * scale, scale / 2, scale);
@@ -303,6 +285,7 @@ public class DrawElement {
 
 		Random rand = new Random();
 
+		// 15 bubbles in random positions
 		for (int i = 0; i < 16; i++) {
 			int randomCol = minCol + rand.nextInt(maxCol - minCol + 1);
 			int randomRow = minRow + rand.nextInt(maxRow - minRow + 1);

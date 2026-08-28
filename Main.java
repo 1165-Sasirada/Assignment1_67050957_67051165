@@ -32,6 +32,7 @@ public class Main {
 			frame.setLocationRelativeTo(null);
 			frame.setVisible(true);
 
+			// 1 tick = 0.5 second
 			Timer timer = new Timer(500, e -> {
 				int currentTick = tamagotchiPanel.getTicks() % 60;
 

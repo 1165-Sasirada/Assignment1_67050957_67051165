@@ -24,6 +24,8 @@ public class Sparkle {
 
 			while (!validPosition && attemps < 50) {
 				attemps++;
+
+				// Random Side
 				int side = ThreadLocalRandom.current().nextInt(0, 4);
 
 				switch (side) {
@@ -57,6 +59,7 @@ public class Sparkle {
 			if (validPosition) {
 				placedPoints.add(new Point(startX, startY));
 
+				// Random Sparkle Type
 				int type = ThreadLocalRandom.current().nextInt(0, 2);
 				switch (type) {
 					case 0:
@@ -95,7 +98,6 @@ public class Sparkle {
 		int colorX = x;
 		int colorY = y + 3;
 
-		// Combined Upper and Lower filling (6 iterations total)
 		for (int i = 0; i < 6; i++) {
 			int yOffset = i * 3;
 			int widthOffset = (i <= 3 ? i : 6 - i) * 3;
@@ -108,6 +110,4 @@ public class Sparkle {
 		Tamagotchi.bresenhamLine(g2d, x - 10, y + 10, x, y + 20, 3);
 		Tamagotchi.bresenhamLine(g2d, x + 10, y + 10, x, y + 20, 3);
 	}
-
-	
 }

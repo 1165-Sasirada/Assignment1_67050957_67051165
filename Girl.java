@@ -133,7 +133,6 @@ public class Girl {
 					}
 				});
 
-		// Draw colored picture on panel
 		destination.drawImage(girlImage, 0, 0, null);
 	}
 }

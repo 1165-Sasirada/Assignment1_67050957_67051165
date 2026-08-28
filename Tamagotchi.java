@@ -467,10 +467,6 @@ public class Tamagotchi extends JPanel {
 		}
 	}
 
-	// private static void plot2d(Graphics g, int x, int y, int size) {
-	// 	g.fillOval(x - size/2, y - size/2, size, size);
-	// }
-
 	private static void plot(Graphics g, int x, int y, int pixelSize) {
 		int size = Math.max(1, pixelSize);
 		g.fillRect(x, y, size, size);
