@@ -1,6 +1,5 @@
 import java.awt.Graphics2D;
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class Girl {
@@ -134,7 +133,7 @@ public class Girl {
 					}
 				});
 
-		// 3. นำภาพที่ระบายสีเสร็จแล้วไปวาดบน Panel
+		// Draw colored picture on panel
 		destination.drawImage(girlImage, 0, 0, null);
 	}
 }

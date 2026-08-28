@@ -144,44 +144,6 @@ public class Tamagotchi extends JPanel {
 				screenG.dispose();
 			}
 
-			// Keep finger animation on the same 66-tick timeline as Main.
-			// The press is shown at the end of the current scene; the next scene
-			// starts on the following tick.
-			// int cycleTick = tickCount % 66;
-
-			// // SLEEP -> IDLE (IDLE starts at displayed tick 9)
-			// if (cycleTick >= 7 && cycleTick <= 8) {
-			// 	Fingers.drawFingerRightStill(g2);
-			// 	Fingers.drawFingerLeftPress(g2);
-			// }
-			// // IDLE -> BATH (BATH starts at displayed tick 17)
-			// else if (cycleTick >= 15 && cycleTick <= 16) {
-			// 	Fingers.drawFingerRightPress(g2);
-			// 	Fingers.drawFingerLeftStill(g2);
-			// }
-			// // BATH -> EAT: move toward the middle button, then press it.
-			// else if (cycleTick == 22) {
-			// 	Fingers.drawFingerRightReach0(g2);
-			// 	Fingers.drawFingerLeftStill(g2);
-			// }
-			// else if (cycleTick == 23) {
-			// 	Fingers.drawFingerRightReach1(g2);
-			// 	Fingers.drawFingerLeftStill(g2);
-			// }
-			// else if (cycleTick == 24) {
-			// 	Fingers.drawFingerRightPressMiddle(g2);
-			// 	Fingers.drawFingerLeftStill(g2);
-			// }
-			// // EAT -> IDLE (IDLE starts at displayed tick 33)
-			// else if (cycleTick >= 31 && cycleTick <= 32) {
-			// 	Fingers.drawFingerRightPress(g2);
-			// 	Fingers.drawFingerLeftStill(g2);
-			// }
-			// else {
-			// 	Fingers.drawFingerRightStill(g2);
-			// 	Fingers.drawFingerLeftStill(g2);
-			// }
-
 			int cycleTick = tickCount % 60;
 
 			if (cycleTick < 6) {

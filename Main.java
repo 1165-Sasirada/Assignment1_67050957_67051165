@@ -32,56 +32,6 @@ public class Main {
 			frame.setLocationRelativeTo(null);
 			frame.setVisible(true);
 
-			// Controls animation tick rate and scene progression
-			// Timer timer = new Timer(500, e -> {
-			// int currentTick = tamagotchiPanel.getTicks() % 48;
-
-			// setScene(Scene.GIRL);
-			// if (currentTick < 8) {
-			// setScene(Scene.GIRL);
-			// } else if (currentTick < 18) {
-			// setScene(Scene.IDLE);
-			// } else if (currentTick < 28) {
-			// setScene(Scene.SLEEP);
-			// } else if (currentTick < 39) {
-			// setScene(Scene.EAT);
-			// } else {
-			// setScene(Scene.BATH);
-			// }
-
-			// tamagotchiPanel.tick();
-			// });
-
-			// Timer timer = new Timer(500, e -> {
-			// int currentTick = tamagotchiPanel.getTicks() % 66;
-
-			// if (currentTick < 8) {
-			// setScene(Scene.SLEEP); // 4 วินาที
-
-			// } else if (currentTick < 16) {
-			// setScene(Scene.IDLE); // 4 วินาที
-
-			// } else if (currentTick < 24) {
-			// setScene(Scene.BATH); // 4 วินาที
-
-			// } else if (currentTick < 32) {
-			// setScene(Scene.EAT); // 4 วินาที
-
-			// } else if (currentTick < 40) {
-			// setScene(Scene.IDLE); // 4 วินาที: กลับสู่ปกติ
-
-			// } else if (currentTick < 46) {
-			// setScene(Scene.GIRL); // 3 วินาที: คนยืน
-
-			// } else {
-			// setScene(Scene.GIRLPEEK); // 10 วินาที: เดิน → เห็น → ตกใจ
-			// }
-
-			// tamagotchiPanel.tick();
-			// });
-			// timer.start();
-			// });
-
 			Timer timer = new Timer(500, e -> {
 				int currentTick = tamagotchiPanel.getTicks() % 60;
 

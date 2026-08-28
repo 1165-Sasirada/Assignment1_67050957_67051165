@@ -7,7 +7,7 @@ public class Fingers {
 	private static final Color SKIN_COLOR = Color.decode("#fcf0e4");
 	private static final Color NAIL_COLOR = Color.decode("#b6465f");
 	
-	//หลักการคือสร้าง Buffered Image แล้ววาดภาพลงใน Buffer แล้วค่อยเติมสี
+	// สร้าง Buffered Image แล้ววาดภาพลงใน Buffer แล้วค่อยเติมสี
 	private static void filledFinger(Graphics2D destination,
 			Consumer<Graphics2D> drawOutline,
 			int skinX, int skinY,

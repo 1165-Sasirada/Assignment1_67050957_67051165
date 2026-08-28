@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.awt.Color;
-// import java.awt.image.BufferedImage;
 
 public class Sparkle {
-	// private static final Color SPARKLE_COLOR = Color.decode("#FDD8E0");
-	// private static BufferedImage sparkleImage;
-
 	private static Color spark = new Color(247, 216, 157);
 
 	public static void drawSparkle(Graphics2D g2d) {
