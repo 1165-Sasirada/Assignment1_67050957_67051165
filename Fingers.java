@@ -3,6 +3,7 @@ import java.awt.image.BufferedImage;
 import java.util.function.Consumer;
 
 public class Fingers {
+	// Color definitions
 	private static final Color SKIN_COLOR = Color.decode("#fcf0e4");
 	private static final Color NAIL_COLOR = Color.decode("#b6465f");
 	

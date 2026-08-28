@@ -1,20 +1,121 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 public class GirlPeek {
+    private static final int WALK_TICKS = 12;
+    private static final int BLINK_INTERVAL_TICKS = 8;
+
+    // Color definitions
+    private static final Color GIRL_SKIN = Color.decode("#FDE9E9");
+    private static final Color GIRL_HAIR = Color.decode("#775C55");
+    private static final Color GIRL_SHIRT = Color.decode("#D7E3F9");
+    private static final Color FRAME_BACKGROUND = Color.decode("#FFFDF4");
+
+    private static final Color EYE_COLOR = Color.decode("#463734");
+    private static final Color PONY_BODY = new Color(200, 187, 235);
+    private static final Color PONY_HAIR = new Color(72, 80, 134);
+    private static final Color PONY_INNER_EAR = new Color(229, 135, 179);
+
+    private static BufferedImage girlOpenFrame;
+    private static BufferedImage girlBlinkFrame;
+    private static BufferedImage[] ponyWalkFrames;
+    private static BufferedImage ponySurprisedFrame;
+
     public static void draw(Graphics2D g2d, int tick) {
+        ensureColoredFrames();
+
         int sceneTick = tick % 30;
+        boolean blink = (sceneTick + 1) % BLINK_INTERVAL_TICKS == 0;
+        g2d.drawImage(blink ? girlBlinkFrame : girlOpenFrame, 0, 0, null);
 
-        // คนในกรอบ
-        boolean blink = sceneTick == 20;
-        drawGirlInFrame(g2d, blink);
-
-        // โพนี่
-        if (sceneTick < 15) {
-            int ponyX = -120 + (190 * sceneTick / 14);
-            drawWalkingPony(g2d, ponyX, 365, sceneTick % 2);
+        if (sceneTick < WALK_TICKS) {
+            int ponyX = -120 + (190 * sceneTick / (WALK_TICKS - 1));
+            g2d.drawImage(ponyWalkFrames[sceneTick % 2], ponyX - 70, 0, null);
         } else {
-            drawSurprisedPony(g2d, 70, 365);
+            g2d.drawImage(ponySurprisedFrame, 0, 0, null);
+        }
+    }
+
+    private static synchronized void ensureColoredFrames() {
+        if (girlOpenFrame != null) {
+            return;
+        }
+
+        girlOpenFrame = createGirlFrame(false);
+        girlBlinkFrame = createGirlFrame(true);
+        ponyWalkFrames = new BufferedImage[] {
+                createPonyFrame(0),
+                createPonyFrame(1)
+        };
+        ponySurprisedFrame = createPonyFrame(-1);
+    }
+
+    private static BufferedImage createGirlFrame(boolean blink) {
+        return Tamagotchi.createBufferedImage(
+                Tamagotchi.TRANSPARENT,
+                (frameGraphics, buffer) -> {
+                    drawGirlInFrame(frameGraphics, blink);
+                    fillGirl(buffer, blink);
+                });
+    }
+
+    private static BufferedImage createPonyFrame(int walkFrame) {
+        return Tamagotchi.createBufferedImage(
+                Tamagotchi.TRANSPARENT,
+                (frameGraphics, buffer) -> {
+                    if (walkFrame >= 0) {
+                        drawWalkingPony(frameGraphics, 70, 365, walkFrame);
+                    } else {
+                        drawSurprisedPony(frameGraphics, 70, 365);
+                    }
+                    fillPony(buffer, walkFrame);
+                });
+    }
+
+    private static void fillGirl(BufferedImage buffer, boolean blink) {
+        Tamagotchi.floodFill(buffer, 420, 260, Tamagotchi.TRANSPARENT, GIRL_SKIN);
+        Tamagotchi.floodFill(buffer, 320, 200, Tamagotchi.TRANSPARENT, GIRL_HAIR);
+        Tamagotchi.floodFill(buffer, 520, 305, Tamagotchi.TRANSPARENT, GIRL_SHIRT);
+        Tamagotchi.floodFill(buffer, 468, 304, Tamagotchi.TRANSPARENT, GIRL_SKIN);
+        Tamagotchi.floodFill(buffer, 280, 200,
+                Tamagotchi.TRANSPARENT, FRAME_BACKGROUND);
+
+        if (!blink) {
+            Tamagotchi.floodFill(buffer, 382, 255, Tamagotchi.TRANSPARENT, EYE_COLOR);
+            Tamagotchi.floodFill(buffer, 444, 237, Tamagotchi.TRANSPARENT, EYE_COLOR);
+        }
+    }
+
+    private static void fillPony(BufferedImage buffer, int walkFrame) {
+        Tamagotchi.floodFill(buffer, 150, 400, Tamagotchi.TRANSPARENT, PONY_BODY);
+
+        int[] hairSeedsX = {65, 150, 110, 190};
+        int[] hairSeedsY = {440, 350, 400, 420};
+        for (int i = 0; i < hairSeedsX.length; i++) {
+            Tamagotchi.floodFill(buffer, hairSeedsX[i], hairSeedsY[i],
+                    Tamagotchi.TRANSPARENT, PONY_HAIR);
+        }
+
+        Tamagotchi.floodFill(buffer, 112, 355, Tamagotchi.TRANSPARENT, PONY_BODY);
+        Tamagotchi.floodFill(buffer, 198, 358, Tamagotchi.TRANSPARENT, PONY_INNER_EAR);
+        Tamagotchi.floodFill(buffer, 190, 342, Tamagotchi.TRANSPARENT, PONY_BODY);
+
+        int[] legSeedsX = {87, 101, 115, 145, 168};
+        int[] legSeedsY = {480, 474, 480, 480, 458};
+        for (int j=0; j < legSeedsX.length ; j++) {
+            Tamagotchi.floodFill(buffer, legSeedsX[j], legSeedsY[j],
+                    Tamagotchi.TRANSPARENT, PONY_BODY);
+        }
+        int frontLegY = walkFrame == 1 ? 465 : 480;
+        Tamagotchi.floodFill(buffer, 165, frontLegY,
+                Tamagotchi.TRANSPARENT, PONY_BODY);
+
+        Tamagotchi.floodFill(buffer, 158, 390, Tamagotchi.TRANSPARENT, EYE_COLOR);
+        Tamagotchi.floodFill(buffer, 190, 385, Tamagotchi.TRANSPARENT, EYE_COLOR);
+        if (walkFrame < 0) {
+            Tamagotchi.floodFill(buffer, 179, 401,
+                    Tamagotchi.TRANSPARENT, EYE_COLOR);
         }
     }
 
@@ -66,6 +167,8 @@ public class GirlPeek {
 
         // Face
         Tamagotchi.bezierCurve(g2, 499, 250, 495, 261, 488, 272, 477, 279, lineSize);
+        // Close the jaw contour so a face flood fill cannot leak through this gap.
+        Tamagotchi.bezierCurve(g2, 477, 279, 470, 287, 462, 292, 454, 295, lineSize);
         Tamagotchi.bezierCurve(g2, 454, 295, 421, 305, 391, 304, 371, 296, lineSize);
         Tamagotchi.bezierCurve(g2, 371, 296, 365, 282, 357, 269, 342, 243, lineSize);
 
@@ -128,6 +231,7 @@ public class GirlPeek {
         Tamagotchi.bezierCurve(g2, 89, 453, 89, 443, 93, 427, 101, 419, lineSize);
 
         Tamagotchi.bezierCurve(g2, 161, 421, 180, 419, 194, 412, 204, 400, lineSize);
+        Tamagotchi.bresenhamLine(g2, 161, 421, 167, 419, lineSize);
         Tamagotchi.bezierCurve(g2, 204, 400, 203, 397, 202, 394, 201, 389, lineSize);
         Tamagotchi.bezierCurve(g2, 201, 389, 201, 382, 201, 373, 197, 367, lineSize);
         Tamagotchi.bresenhamLine(g2, 197, 367, 192, 365, lineSize);
@@ -165,6 +269,7 @@ public class GirlPeek {
         Tamagotchi.bezierCurve(g2, 102, 411, 88, 393, 63, 397, 49, 423, lineSize);
         Tamagotchi.bezierCurve(g2, 49, 423, 47, 435, 41, 460, 34, 458, lineSize);
         Tamagotchi.bezierCurve(g2, 34, 458, 43, 466, 61, 473, 79, 473, lineSize);
+        Tamagotchi.bezierCurve(g2, 79, 473, 86, 468, 89, 460, 89, 453, lineSize);
 
         // Face
         Tamagotchi.midpointCircle(g2, 158, 390, 4, lineSize);
@@ -174,11 +279,13 @@ public class GirlPeek {
 
         if (walkFrame == 0) {
             //ขาหน้า
+            Tamagotchi.bresenhamLine(g2, 167, 446, 159, 451, lineSize);
             Tamagotchi.bresenhamLine(g2, 159, 451, 179, 481, lineSize);
             Tamagotchi.bezierCurve(g2, 179, 481, 178, 491, 166, 493, 158, 491, lineSize);
             Tamagotchi.bresenhamLine(g2, 158, 491, 145, 464, lineSize);
 
             Tamagotchi.bezierCurve(g2, 145, 464, 137, 465, 122, 465, 110, 461, lineSize);
+            Tamagotchi.bresenhamLine(g2, 110, 461, 90, 454, lineSize);
 
             Tamagotchi.bezierCurve(g2, 168, 446, 173, 454, 173, 459, 171, 467, lineSize);
             Tamagotchi.bresenhamLine(g2, 154, 481, 150, 487, lineSize);
@@ -196,6 +303,7 @@ public class GirlPeek {
             Tamagotchi.bresenhamLine(g2, 129, 483, 123, 465, lineSize);
         } else {
             ; // ขาหน้า
+            Tamagotchi.bresenhamLine(g2, 167, 446, 155, 446, lineSize);
             Tamagotchi.bezierCurve(g2, 155, 446, 163, 446, 171, 451, 174, 456, lineSize);
             Tamagotchi.bresenhamLine(g2, 174, 456, 179, 470, lineSize);
             Tamagotchi.bezierCurve(g2, 179, 470, 174, 478, 165, 477, 157, 475, lineSize);
@@ -203,6 +311,8 @@ public class GirlPeek {
             Tamagotchi.bezierCurve(g2, 155, 464, 150, 464, 142, 460, 138, 454, lineSize);
 
             Tamagotchi.bezierCurve(g2, 147, 462, 137, 465, 122, 465, 110, 461, lineSize);
+            Tamagotchi.bresenhamLine(g2, 138, 454, 147, 462, lineSize);
+            Tamagotchi.bresenhamLine(g2, 110, 461, 90, 454, lineSize);
 
             Tamagotchi.bresenhamLine(g2, 139, 464, 136, 486, lineSize);
             Tamagotchi.bezierCurve(g2, 136, 486, 142, 493, 152, 494, 159, 490, lineSize);
@@ -227,12 +337,19 @@ public class GirlPeek {
         // วาดโพนี่: ตาโต ปากอ้า หูตั้ง + เส้นตกใจ
         int lineSize = 3;
         g2.setColor(Color.BLACK);
+
+        // เส้นตกใจแผ่ออกจากด้านบนศีรษะ
+        Tamagotchi.bresenhamLine(g2, 125, 324, 112, 307, lineSize);
+        Tamagotchi.bresenhamLine(g2, 157, 316, 157, 294, lineSize);
+        Tamagotchi.bresenhamLine(g2, 188, 322, 201, 303, lineSize);
+
         Tamagotchi.bezierCurve(g2, 167, 419, 169, 429, 169, 436, 167, 446, lineSize);
         // Tamagotchi.bezierCurve(g2, 149, 462, 137, 465, 122, 465, 110, 461,
         // lineSize);
         Tamagotchi.bezierCurve(g2, 89, 453, 89, 443, 93, 427, 101, 419, lineSize);
 
         Tamagotchi.bezierCurve(g2, 161, 421, 180, 419, 194, 412, 204, 400, lineSize);
+        Tamagotchi.bresenhamLine(g2, 161, 421, 167, 419, lineSize);
         Tamagotchi.bezierCurve(g2, 204, 400, 203, 397, 202, 394, 201, 389, lineSize);
         Tamagotchi.bezierCurve(g2, 201, 389, 201, 382, 201, 373, 197, 367, lineSize);
         Tamagotchi.bresenhamLine(g2, 197, 367, 192, 365, lineSize);
@@ -270,6 +387,7 @@ public class GirlPeek {
         Tamagotchi.bezierCurve(g2, 102, 411, 88, 393, 63, 397, 49, 423, lineSize);
         Tamagotchi.bezierCurve(g2, 49, 423, 47, 435, 41, 460, 34, 458, lineSize);
         Tamagotchi.bezierCurve(g2, 34, 458, 43, 466, 61, 473, 88, 474, lineSize);
+        Tamagotchi.bezierCurve(g2, 88, 474, 91, 466, 91, 459, 89, 453, lineSize);
 
         // Face
         Tamagotchi.midpointCircle(g2, 158, 390, 4, lineSize);
@@ -278,11 +396,14 @@ public class GirlPeek {
         Tamagotchi.midpointCircle(g2, 179, 401, 3, lineSize);
 
         // ขาหน้า
+        Tamagotchi.bresenhamLine(g2, 167, 446, 152, 460, lineSize);
+        Tamagotchi.bresenhamLine(g2, 152, 460, 150, 458, lineSize);
         Tamagotchi.bresenhamLine(g2, 150, 458, 150, 490, lineSize);
         Tamagotchi.bezierCurve(g2, 150, 490, 146, 496, 138, 496, 130, 493, lineSize);
         Tamagotchi.bresenhamLine(g2, 130, 493, 129, 465, lineSize);
 
         Tamagotchi.bezierCurve(g2, 130, 465, 117, 462, 123, 464, 110, 461, lineSize);
+        Tamagotchi.bresenhamLine(g2, 110, 461, 90, 454, lineSize);
         Tamagotchi.bezierCurve(g2, 152, 460, 160, 454, 165, 450, 167, 445, lineSize);
 
         Tamagotchi.bresenhamLine(g2, 165, 450, 169, 486, lineSize);

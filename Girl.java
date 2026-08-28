@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class Girl {
+	// Color definitions
 	private static final Color SKIN_COLOR = Color.decode("#fde9e9");
 	private static final Color HAIR_COLOR = Color.decode("#775c55");
 	private static final Color SHIRT_COLOR = Color.decode("#d7e3f9");
@@ -108,7 +109,7 @@ public class Girl {
 					girlGraphics.setColor(Color.decode("#3d322d"));
 					drawGirlOutline(girlGraphics, frameIndex);
 
-					// 2. เติมสีจากจุดที่อยู่ "ข้างใน" ของแต่ละส่วน
+					// 2. เติมสี
 					Tamagotchi.floodFill(buffer, 300, 350, Tamagotchi.TRANSPARENT, SKIN_COLOR);
 					Tamagotchi.floodFill(buffer, 337, 233, Tamagotchi.TRANSPARENT, SKIN_COLOR);
 					Tamagotchi.floodFill(buffer, 299, 418, Tamagotchi.TRANSPARENT, SKIN_COLOR);
@@ -124,9 +125,13 @@ public class Girl {
 
 						Tamagotchi.floodFill(buffer, 256, 285,Tamagotchi.TRANSPARENT, eyeColor);
 						Tamagotchi.floodFill(buffer, 344, 285,Tamagotchi.TRANSPARENT, eyeColor);
+
+						// Eye highlights: draw the boundary with Midpoint Circle, then fill it.
 						girlGraphics.setColor(Color.WHITE);
-						girlGraphics.fillOval(250, 277, 7, 7); // ตาซ้าย
-						girlGraphics.fillOval(338, 277, 7, 7); // ตาขวา
+						Tamagotchi.midpointCircle(girlGraphics, 253, 280, 3, 1);
+						Tamagotchi.midpointCircle(girlGraphics, 341, 280, 3, 1);
+						Tamagotchi.floodFill(buffer, 253, 280, eyeColor, Color.WHITE);
+						Tamagotchi.floodFill(buffer, 341, 280, eyeColor, Color.WHITE);
 					}
 				});
 

@@ -10,6 +10,7 @@ public class Tamagotchi extends JPanel {
 	private static final int CANVAS_GRID_SIZE = 64;
 
 	private int tickCount = 0;
+	private int girlPeekStartTick = -1;
 	private BufferedImage tamagotchiDeviceImage;
 
 	// Color definitions
@@ -29,11 +30,12 @@ public class Tamagotchi extends JPanel {
 	private BufferedImage referenceImage;
 
 	public Tamagotchi() {
-		setBackground(Color.WHITE);
+		// Color definitions พื้นหลังฉากทามาก็อตจิ
+		setBackground(Color.PINK);
 		tamagotchiDeviceImage = createBufferedImage(TRANSPARENT, this::drawTamagotchiShell);		
 		try {
         	referenceImage = ImageIO.read(
-            Tamagotchi.class.getResource("./FrameGirl.png")
+            Tamagotchi.class.getResource("./PonyWalk1.png")
         );
     	} catch (Exception e) {
         	e.printStackTrace();
@@ -53,9 +55,15 @@ public class Tamagotchi extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g.create();
+		Main.Scene currentScene = Main.getCurrentScene();
+
+		// GIRLPEEK uses a scene-local clock so it always starts with the pony walking in.
+		if (currentScene != Main.Scene.GIRLPEEK) {
+			girlPeekStartTick = -1;
+		}
 
 		try {
-			if (Main.getCurrentScene() == Main.Scene.GIRL) {
+			if (currentScene == Main.Scene.GIRL) {
 				g2.setColor(Color.decode("#fef9c1"));
 				g2.fillRect(0, 0, getWidth(), getHeight());
 
@@ -80,7 +88,7 @@ public class Tamagotchi extends JPanel {
 				int scale = Math.max(1, Math.min(getWidth(), getHeight()) / CANVAS_GRID_SIZE);
 
 				// 3. Render content based on active Scene
-				switch (Main.getCurrentScene()) {
+				switch (currentScene) {
 					case IDLE:
 						screenG.setColor(palePinkBG);
 						screenG.fillRect(48, 48, 640, 640);
@@ -120,6 +128,7 @@ public class Tamagotchi extends JPanel {
 						PonyEat.draw(screenG, scale, tickCount % 4);
 						break;
 					case GIRL:
+						// Color definitions
 						g2.setColor(Color.decode("#FCEAF2"));
 						g2.fillRect(0, 0, getWidth(), getHeight());
 						Sparkle.drawSparkle(g2);
@@ -127,11 +136,15 @@ public class Tamagotchi extends JPanel {
 
 						return;
 					case GIRLPEEK:
+						// Color definitions
 						g2.setColor(Color.decode("#FCEAF2"));
-    					g2.fillRect(0, 0, getWidth(), getHeight());
-    					GirlPeek.draw(g2, tickCount % 30);
+						g2.fillRect(0, 0, getWidth(), getHeight());
+						if (girlPeekStartTick < 0) {
+							girlPeekStartTick = tickCount;
+						}
+						GirlPeek.draw(g2, tickCount - girlPeekStartTick);
 
-    					return;
+						return;
     				
 						default:
 						break;
@@ -141,26 +154,37 @@ public class Tamagotchi extends JPanel {
 				screenG.dispose();
 			}
 
-			int cycleTick = tickCount % 48;
+			// Keep finger animation on the same 66-tick timeline as Main.
+			// The press is shown at the end of the current scene; the next scene
+			// starts on the following tick.
+			int cycleTick = tickCount % 66;
 
-			if (cycleTick >= 16 && cycleTick < 18) {
+			// SLEEP -> IDLE (IDLE starts at displayed tick 9)
+			if (cycleTick >= 7 && cycleTick <= 8) {
 				Fingers.drawFingerRightStill(g2);
 				Fingers.drawFingerLeftPress(g2);
 			}
-			else if (cycleTick >= 26 && cycleTick < 28) {
+			// IDLE -> BATH (BATH starts at displayed tick 17)
+			else if (cycleTick >= 15 && cycleTick <= 16) {
 				Fingers.drawFingerRightPress(g2);
 				Fingers.drawFingerLeftStill(g2);
 			}
-			else if (cycleTick == 36) {
+			// BATH -> EAT: move toward the middle button, then press it.
+			else if (cycleTick == 22) {
 				Fingers.drawFingerRightReach0(g2);
 				Fingers.drawFingerLeftStill(g2);
 			}
-			else if (cycleTick == 37) {
+			else if (cycleTick == 23) {
 				Fingers.drawFingerRightReach1(g2);
 				Fingers.drawFingerLeftStill(g2);
 			}
-			else if (cycleTick == 38) {
+			else if (cycleTick == 24) {
 				Fingers.drawFingerRightPressMiddle(g2);
+				Fingers.drawFingerLeftStill(g2);
+			}
+			// EAT -> IDLE (IDLE starts at displayed tick 33)
+			else if (cycleTick >= 31 && cycleTick <= 32) {
+				Fingers.drawFingerRightPress(g2);
 				Fingers.drawFingerLeftStill(g2);
 			}
 			else {
