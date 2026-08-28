@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.awt.Color;
-import java.awt.image.BufferedImage;
+// import java.awt.image.BufferedImage;
 
 public class Sparkle {
-	private static final Color SPARKLE_COLOR = Color.decode("#FDD8E0");
-	private static BufferedImage sparkleImage;
+	// private static final Color SPARKLE_COLOR = Color.decode("#FDD8E0");
+	// private static BufferedImage sparkleImage;
+
+	private static Color spark = new Color(247, 216, 157);
+
 	public static void drawSparkle(Graphics2D g2d) {
 		int width = 600;
 		int height = 600;
@@ -72,6 +75,19 @@ public class Sparkle {
 	}
 
 	private static void sparkle0(Graphics2D g2d, int x, int y) {
+		g2d.setColor(spark);
+    	int colorX = x - 2;
+    	int colorY = y + 7;
+
+		// X offset
+    	int[] xOffsets = {0, 3, 6, 12, 24, 21, 9, 6, 3, 0};
+    	for (int i = 0; i < xOffsets.length; i++) {
+    		int dx = xOffsets[i];
+    		int dy = i * 5;
+    		Tamagotchi.bresenhamLine(g2d, colorX - dx, colorY + dy, colorX + dx, colorY + dy, 5);
+    	}
+
+		g2d.setColor(Color.BLACK);
 		Tamagotchi.bezierCurve(g2d, x, y, x - 10, y + 30, x - 10, y + 20, x - 30, y + 30,3);
 		Tamagotchi.bezierCurve(g2d, x, y, x + 10, y + 30, x + 10, y + 20, x + 30, y + 30,3);
 		Tamagotchi.bezierCurve(g2d, x, y + 60, x - 10, y + 30, x - 10, y + 40, x - 30, y + 30,3);
@@ -79,6 +95,18 @@ public class Sparkle {
 	}
 
 	private static void sparkle1(Graphics2D g2d, int x, int y) {
+		g2d.setColor(spark);
+		int colorX = x;
+		int colorY = y + 3;
+
+		// Combined Upper and Lower filling (6 iterations total)
+		for (int i = 0; i < 6; i++) {
+			int yOffset = i * 3;
+			int widthOffset = (i <= 3 ? i : 6 - i) * 3;
+			Tamagotchi.bresenhamLine(g2d, colorX - widthOffset, colorY + yOffset, colorX + widthOffset, colorY + yOffset, 3);
+		}
+
+		g2d.setColor(Color.BLACK);
 		Tamagotchi.bresenhamLine(g2d, x, y, x - 10, y + 10, 3);
 		Tamagotchi.bresenhamLine(g2d, x, y, x + 10, y + 10, 3);
 		Tamagotchi.bresenhamLine(g2d, x - 10, y + 10, x, y + 20, 3);
