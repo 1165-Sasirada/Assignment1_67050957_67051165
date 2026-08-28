@@ -126,7 +126,6 @@ public class Girl {
 						Tamagotchi.floodFill(buffer, 256, 285,Tamagotchi.TRANSPARENT, eyeColor);
 						Tamagotchi.floodFill(buffer, 344, 285,Tamagotchi.TRANSPARENT, eyeColor);
 
-						// Eye highlights: draw the boundary with Midpoint Circle, then fill it.
 						girlGraphics.setColor(Color.WHITE);
 						Tamagotchi.midpointCircle(girlGraphics, 253, 280, 3, 1);
 						Tamagotchi.midpointCircle(girlGraphics, 341, 280, 3, 1);

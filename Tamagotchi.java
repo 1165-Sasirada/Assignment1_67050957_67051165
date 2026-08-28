@@ -28,7 +28,7 @@ public class Tamagotchi extends JPanel {
 
 	public Tamagotchi() {
 		// Color definitions พื้นหลังฉากทามาก็อตจิ
-		setBackground(frameColor);
+		setBackground(Color.decode("#fef9c1"));
 		tamagotchiDeviceImage = createBufferedImage(TRANSPARENT, this::drawTamagotchiShell);
 	}
 

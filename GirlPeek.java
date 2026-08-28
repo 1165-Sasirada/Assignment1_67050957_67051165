@@ -10,8 +10,8 @@ public class GirlPeek {
     private static final Color GIRL_SKIN = Color.decode("#FDE9E9");
     private static final Color GIRL_HAIR = Color.decode("#775C55");
     private static final Color GIRL_SHIRT = Color.decode("#D7E3F9");
-    // private static final Color FRAME_BACKGROUND = Color.decode("#FFFDF4");
-    private static final Color FRAME_BACKGROUND = Tamagotchi.screenColor;
+    private static final Color FRAME_BACKGROUND = Color.decode("#fef9c1");
+    // private static final Color FRAME_BACKGROUND = Tamagotchi.screenColor;
 
     private static final Color EYE_COLOR = Color.decode("#463734");
     private static final Color PONY_BODY = new Color(200, 187, 235);
